@@ -1,0 +1,43 @@
+window-rule {
+    geometry-corner-radius 5
+    clip-to-geometry true
+}
+
+window-rule {
+    match app-id="foot"
+    // open-maximized true
+}
+
+window-rule {
+    match app-id="kitty"
+    open-maximized true
+}
+
+window-rule {
+  match app-id="com.gabm.satty"
+  open-floating true
+
+  min-width 400
+  max-width 1000
+  min-height 200
+  max-height 900
+}
+
+window-rule {
+  match app-id="mpv"
+  open-floating true
+
+  min-width 400
+  max-width 1300
+  min-height 200
+  max-height 1000
+}
+
+window-rule {
+  match app-id="thunar"
+  open-floating true
+
+  default-window-height { proportion 0.5; }
+  default-column-width { proportion 0.5; }
+}
+

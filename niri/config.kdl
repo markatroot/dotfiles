@@ -1,0 +1,84 @@
+// This config is in the KDL format: https://kdl.dev
+// "/-" comments out the following node.
+// Check the wiki for a full description of the configuration:
+// https://niri-wm.github.io/niri/Configuration:-Introduction
+include "config/input.kdl"
+
+// You can configure outputs by their name, which you can find
+// by running `niri msg outputs` while inside a niri instance.
+// The built-in laptop monitor is usually called "eDP-1".
+// Find more information on the wiki:
+// https://niri-wm.github.io/niri/Configuration:-Outputs
+// Remember to uncomment the node by removing "/-"!
+include "config/output.kdl"
+
+// Settings that influence how windows are positioned and sized.
+// Find more information on the wiki:
+// https://niri-wm.github.io/niri/Configuration:-Layout
+include "config/layout.kdl"
+
+// Add lines like this to spawn processes at startup.
+// Note that running niri as a session supports xdg-desktop-autostart,
+// which may be more convenient to use.
+// See the binds section below for more spawn examples.
+
+// This line starts waybar, a commonly used bar for Wayland compositors.
+// spawn-at-startup "waybar"
+
+// To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
+// spawn-sh-at-startup "qs -c ~/source/qs/MyAwesomeShell"
+include "config/hotkey-overlay.kdl"
+
+// Uncomment this line to ask the clients to omit their client-side decorations if possible.
+// If the client will specifically ask for CSD, the request will be honored.
+// Additionally, clients will be informed that they are tiled, removing some client-side rounded corners.
+// This option will also fix border/focus ring drawing behind some semitransparent windows.
+// After enabling or disabling this, you need to restart the apps for this to take effect.
+prefer-no-csd
+
+// You can change the path where screenshots are saved.
+// A ~ at the front will be expanded to the home directory.
+// The path is formatted with strftime(3) to give you the screenshot date and time.
+screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
+
+// You can also set this to null to disable saving screenshots to disk.
+// screenshot-path null
+
+// Animation settings.
+// The wiki explains how to configure individual animations:
+// https://niri-wm.github.io/niri/Configuration:-Animations
+include "config/animations.kdl"
+
+// Window rules let you adjust behavior for individual windows.
+// Find more information on the wiki:
+// https://niri-wm.github.io/niri/Configuration:-Window-Rules
+
+// Example: enable rounded corners for all windows.
+// (This example rule is commented out with a "/-" in front.)
+
+// status bar
+spawn-sh-at-startup "qs"
+
+// wallpaper
+// spawn-sh-at-startup "wbg ~/.mark/wallpaper/chowy_one.png"
+
+// desktop portal for screen sharing or capturing
+spawn-sh-at-startup "./scripts/desktop-portal"
+
+// This will make sure that xdg-desktop-portal-hyprland can get the required variables on startup.
+spawn-sh-at-startup "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
+
+// Source a file (multi-file configs)
+spawn-sh-at-startup "wl-paste --type text --watch cliphist store -max-items 25 #Stores only text data"
+
+spawn-sh-at-startup "wl-paste --type image --watch cliphist store -max-items 25 #Stores only image data"
+
+include "config/window-rule.kdl"
+
+include "config/layer-rule.kdl"
+
+include "config/binds.kdl"
+
+include "config/gestures.kdl"
+
+include "config/overview.kdl"
