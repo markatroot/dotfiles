@@ -4,6 +4,12 @@ Personal configuration for a Wayland desktop built on [niri](https://github.com/
 
 This directory is expected to live at (or be symlinked from) `~/.mark/config`, exported as `$CONFIG_PATH`. Several configs (niri binds, scripts) reference `$CONFIG_PATH` directly, so that env var must be set before niri starts.
 
+## Screenshots
+
+| niri | Quickshell | nvim |
+|---|---|---|
+| ![niri](screenshots/niri.png) | ![Quickshell](screenshots/quickshell.png) | ![nvim](screenshots/nvim.png) |
+
 ## Layout
 
 | Path | What it is |

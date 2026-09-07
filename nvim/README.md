@@ -4,6 +4,8 @@ Personal Neovim configuration. Plugins are managed with Neovim's built-in
 `vim.pack` (no packer/lazy.nvim/vim-plug), wrapped by a small custom layer
 that adds lazy-loading by filetype.
 
+![nvim](../screenshots/nvim.png)
+
 ## Requirements
 
 - Neovim with `vim.pack` (0.12+ / nightly)

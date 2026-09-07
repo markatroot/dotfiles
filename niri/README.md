@@ -2,6 +2,8 @@
 
 Personal [niri](https://github.com/YaLTeR/niri) window manager configuration, using the Catppuccin Mocha color palette.
 
+![niri](../screenshots/niri.png)
+
 ## Layout
 
 ```

@@ -2,6 +2,8 @@
 
 A [Quickshell](https://quickshell.outfoxxed.me/) desktop shell for a Wayland session running the [Niri](https://github.com/YaLTeR/niri) scrolling compositor. Provides a topbar, a live wallpaper window, and desktop notification popups, all written in QML.
 
+![Quickshell](../screenshots/quickshell.png)
+
 ## Features
 
 - **Topbar** (`windows/Topbar.qml`) — a `wlr-layer-shell` panel anchored to the top of the screen with:
