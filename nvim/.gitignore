@@ -1,1 +1,7 @@
 swap/
+
+# Personal work-log helper and files referencing employer-internal project names
+lua/custom/note/note.lua
+lua/custom/menu/menu.lua
+lua/my_plugin/menu.lua
+lua/my_plugin/nvim-dap/nvim-dap-adapters.lua
