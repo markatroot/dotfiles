@@ -94,7 +94,7 @@ function M.set_opt(scope, key, value)
   scopes[scope][key] = value
   if scope ~= 'o' then scopes['o'][key] = value end
   if scopes[scope] == nil then
-    print('Invalid option: ' .. key ' ' .. value)
+    -- print('Invalid option: ' .. key ' ' .. value)
     return
   end
 
@@ -131,7 +131,6 @@ function M.get_hl_hex(name)
   if not ok then
     return
   end
-  print(vim.inspect(hl))
   for _, key in pairs({ 'foreground', 'background', 'special' }) do
     if hl[key] then
       hl[key] = string.format('#%06x', hl[key])
@@ -165,7 +164,7 @@ end
 
 -- Debug helper: prints the highlight group under the cursor.
 M.print_hl_under_cursor = function()
-  print(vim.inspect(vim.api.nvim_get_hl(-1, {})))
+  -- print(vim.inspect(vim.api.nvim_get_hl(-1, {})))
 end
 
 -- Timers for M.debounce, keyed by the caller-supplied timer_key.

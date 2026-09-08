@@ -72,7 +72,7 @@ function M.fix_result()
         -- focus on fixed window
         vim.fn.win_gotoid(vim.fn.get(vim.fn.win_findbuf(bufnr), 0))
       else
-        print('response is not handle ' .. result.command)
+        -- print('response is not handle ' .. result.command)
       end
       -- close window
       vim.fn.win_gotoid(vim.fn.get(vim.fn.win_findbuf(bufnr), 0))

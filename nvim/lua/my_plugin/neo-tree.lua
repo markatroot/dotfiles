@@ -19,7 +19,7 @@ local function startjob(command, cwd, state)
     detach = true,
     on_stderr = function(_, data)
       if data == nil or data == '' then
-        print('Command error')
+        -- print('Command error')
       end
     end,
     on_exit = function()

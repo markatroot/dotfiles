@@ -98,7 +98,7 @@ function menu#open_output_buf()
   if get(selected_item, 'job_id', -1) != -1
     let selected_item.bufnr = menu#create_output_buf(selected_item)
   else
-    echo "no job running on selected item"
+    "echo "no job running on selected item"
   endif
 endfunction
 
@@ -128,7 +128,7 @@ function s:job_std.on_exit(job_id, data, event)
     call menu#redraw()
   endif
   if a:data != 0
-    echo self.item.text . " command exited with return code: " . a:data
+    "echo self.item.text . " command exited with return code: " . a:data
   endif
 endfunction
 
