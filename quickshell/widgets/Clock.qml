@@ -13,7 +13,7 @@ RowLayout {
 
     Text {
       text: Qt.formatDateTime(root.clockDate, "ddd, MMM dd yyyy")
-      color: Fonts.colorNormal
+      color: "#4f5775" // Fonts.colorNormal
       font.weight: Fonts.bold
       font.family: Fonts.mono
       font.pixelSize: Fonts.xxl
@@ -21,7 +21,7 @@ RowLayout {
     }
     Text {
       text: Qt.formatDateTime(root.clockDate, "hh:mmAP")
-      color: Fonts.colorNormal
+      color: "#4f5775" // Fonts.colorNormal
       font.weight: Fonts.bold
       font.family: Fonts.mono
       font.pixelSize: Fonts.xxl * 6

@@ -6,17 +6,17 @@ local pack = {
   {
     name = 'tree-sitter-manager.nvim',
     src = 'romus204/tree-sitter-manager.nvim',
-    ft = {
-      'javascript',
-      'typescript',
-      'lua',
-      'html',
-      'css',
-      'scss',
-      'bash',
-      'sh',
-      'qml',
-    },
+    -- ft = {
+    --   'javascript',
+    --   'typescript',
+    --   'lua',
+    --   'html',
+    --   'css',
+    --   'scss',
+    --   'bash',
+    --   'sh',
+    --   'qml',
+    -- },
     config = function()
       require 'my_plugin.tree-sitter-manager'
     end,

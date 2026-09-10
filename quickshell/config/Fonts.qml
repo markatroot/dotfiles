@@ -1,6 +1,7 @@
 pragma Singleton
 
 import QtQuick
+import Quickshell
 
 QtObject {
   id: root
@@ -21,16 +22,16 @@ QtObject {
 
   // readonly property string colorPrimary: "#ed8796"
 
-  readonly property string colorPrimary: "#fd5a24"
+  readonly property string colorPrimary: Quickshell.env("THEME_BLUE")
 
-  readonly property string colorNormal: "#c0caf5"
+  readonly property string colorNormal: Quickshell.env("THEME_FG")
 
   readonly property string colorNormal50: "#71778f"
 
-  readonly property string colorDanger: "#f97676"
+  readonly property string colorDanger: Quickshell.env("THEME_DANGER")
 
-  readonly property string colorWarning: "#ffff63"
+  readonly property string colorWarning: Quickshell.env("THEME_WARNING")
 
-  readonly property string colorSuccess: "#6dff6d"
+  readonly property string colorSuccess: Quickshell.env("THEME_SUCCESS")
 
 }
