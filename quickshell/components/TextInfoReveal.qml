@@ -11,9 +11,11 @@ Rectangle {
 
   required property bool show
 
+  property int fontSize: Fonts.md
+
   property string textColor: Fonts.colorNormal
 
-  Layout.preferredWidth: root.show ? labelText.width : 0
+  Layout.preferredWidth: root.show || mouseArea.containsMouse ? labelText.width : 0
   width: Layout.preferredWidth   // keep width in sync so clip works visually
   height: labelText.height
   clip: true
@@ -33,6 +35,12 @@ Rectangle {
     color: Fonts.colorNormal
     font.weight: Fonts.black
     font.family: Fonts.mono
-    font.pixelSize: Fonts.md
+    font.pixelSize: root.fontSize
+
+    MouseArea {
+      id: mouseArea
+      anchors.fill: parent
+      hoverEnabled: true // Required to detect hover without clicking
+    }
   }
 }

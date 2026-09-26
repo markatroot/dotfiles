@@ -4,12 +4,13 @@ import QtQuick.Effects
 import Quickshell
 import "../services" as QsServices
 import "../config"
+import "../components"
 
 RowLayout {
   id: root
   Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
   Layout.fillHeight: true
-  spacing: 5
+  // spacing: 5
 
   readonly property var cpuUsageFraction: QsServices.SystemResourcesService.cpuPerc
 
@@ -53,11 +54,25 @@ RowLayout {
 
   Text {
     Layout.leftMargin: 20
+    Layout.rightMargin: -5
     text: `${root.memoryUsage}Gb`
     color: Fonts.colorNormal
     font.weight: Fonts.medium
     font.family: Fonts.mono
     font.pixelSize: Fonts.lg
+
+    MouseArea {
+      id: memoryUsageHover
+      anchors.fill: parent
+      hoverEnabled: true // Required to detect hover without clicking
+    }
+  }
+
+  TextInfoReveal {
+    show: memoryUsageHover.containsMouse || memoryUsageIconHover.containsMouse
+    text: `/${root.memoryTotal}Gb`
+    fontSize: Fonts.lg
+    opacity: .6
   }
 
   MultiEffect {
@@ -67,6 +82,13 @@ RowLayout {
     Layout.alignment: Qt.AlignVCenter
     Layout.preferredWidth: memoryIcon.width
     Layout.preferredHeight: memoryIcon.height
+
+
+    MouseArea {
+      id: memoryUsageIconHover
+      anchors.fill: parent
+      hoverEnabled: true // Required to detect hover without clicking
+    }
   }
 
   Image {

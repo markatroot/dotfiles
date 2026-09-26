@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.Layouts
 import Quickshell
+import "../config"
 import Quickshell.Services.SystemTray
 
 // Minimal Quickshell system tray widget.
@@ -23,8 +24,8 @@ RowLayout {
     spacing: 8
 
     property int iconSize: 18
-    property color tooltipBg: "#1e1e2e"
-    property color tooltipFg: "#cdd6f4"
+    property color tooltipBg: Theme.bg
+    property color tooltipFg: Theme.fg
 
     Repeater {
         model: SystemTray.items
@@ -95,7 +96,7 @@ RowLayout {
                     color: root.tooltipBg
                     radius: 6
                     border.width: 1
-                    border.color: "#313244"
+                    border.color: Theme.selection
 
                     Text {
                         id: tooltipText

@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.Layouts
 import Quickshell
+import "../config"
 import Quickshell.Wayland
 import Quickshell.Services.Notifications
 
@@ -22,12 +23,12 @@ Scope {
   property int spacing: 8
   property int margin: 16
   property int defaultTimeoutMs: 6000
-  property color bg: "#1e1e2e"
-  property color fg: "#cdd6f4"
-  property color subFg: "#a6adc8"
-  property color lowColor: "#89b4fa"
-  property color normalColor: "#89b4fa"
-  property color criticalColor: "#f38ba8"
+  property color bg: Theme.bg
+  property color fg: Theme.fg
+  property color subFg: Qt.darker(Theme.fg, 1.2)
+  property color lowColor: Theme.primary
+  property color normalColor: Theme.primary
+  property color criticalColor: Theme.danger
 
   NotificationServer {
     id: notifServer
@@ -176,7 +177,7 @@ Scope {
                       implicitWidth: actionLabel.implicitWidth + 16
                       implicitHeight: 24
                       radius: 5
-                      color: "#313244"
+                      color: Theme.selection
 
                       Text {
                         id: actionLabel

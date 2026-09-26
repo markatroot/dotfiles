@@ -56,6 +56,9 @@ include "config/animations.kdl"
 // Example: enable rounded corners for all windows.
 // (This example rule is commented out with a "/-" in front.)
 
+// theme: render *.kdl.in templates with themerc colors
+spawn-sh-at-startup "$CONFIG_PATH/niri/scripts/theme.sh"
+
 // status bar
 spawn-sh-at-startup "qs"
 

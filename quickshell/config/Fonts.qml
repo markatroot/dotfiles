@@ -22,16 +22,16 @@ QtObject {
 
   // readonly property string colorPrimary: "#ed8796"
 
-  readonly property string colorPrimary: Quickshell.env("THEME_BLUE")
+  readonly property color colorPrimary: Theme.primary
 
-  readonly property string colorNormal: Quickshell.env("THEME_FG")
+  readonly property color colorNormal: Theme.fg
 
-  readonly property string colorNormal50: "#71778f"
+  readonly property color colorNormal50: Qt.darker(Theme.fg, 1.5)
 
-  readonly property string colorDanger: Quickshell.env("THEME_DANGER")
+  readonly property color colorDanger: Theme.danger
 
-  readonly property string colorWarning: Quickshell.env("THEME_WARNING")
+  readonly property color colorWarning: Theme.warning
 
-  readonly property string colorSuccess: Quickshell.env("THEME_SUCCESS")
+  readonly property color colorSuccess: Theme.success
 
 }

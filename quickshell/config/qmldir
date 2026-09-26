@@ -1,3 +1,4 @@
 singleton Fonts Fonts.qml
 singleton Icons Icons.qml
 
+singleton Theme Theme.qml

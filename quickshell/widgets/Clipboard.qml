@@ -14,14 +14,14 @@ RowLayout {
   Layout.fillHeight: true
 
   // OneDark palette
-  readonly property color cBg: "#282c34"
-  readonly property color cBgAlt: "#21252b"
-  readonly property color cSurface: "#2c313a"
-  readonly property color cHighlight: "#3e4452"
-  readonly property color cFg: "#abb2bf"
-  readonly property color cComment: "#5c6370"
-  readonly property color cBlue: "#61afef"
-  readonly property color cRed: "#e06c75"
+  readonly property color cBg: Theme.bg
+  readonly property color cBgAlt: Theme.bgAlt
+  readonly property color cSurface: Qt.lighter(Theme.bg, 1.1)
+  readonly property color cHighlight: Theme.selection
+  readonly property color cFg: Theme.fg
+  readonly property color cComment: Theme.brightBlack
+  readonly property color cBlue: Theme.blue
+  readonly property color cRed: Theme.red
 
   readonly property int maxVisibleItems: 15
   readonly property int rowHeight: 34

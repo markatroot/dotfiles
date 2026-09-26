@@ -15,7 +15,7 @@ PanelWindow {
   WlrLayershell.layer: WlrLayer.Background
   WlrLayershell.namespace: "quickshell:my-wallpaper"
   WlrLayershell.exclusiveZone: -1
-  color: "#2a2c39"
+  color: Theme.bg
 
   property string companionImagePath: Icons.imagePath("chowy_front.png")
 
