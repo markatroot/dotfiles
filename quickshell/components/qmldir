@@ -1,0 +1,5 @@
+module Components
+
+Popup 1.0 Popup.qml
+MyTooltip 1.0 MyTooltip.qml
+TextInfoReveal 1.0 TextInfoReveal.qml

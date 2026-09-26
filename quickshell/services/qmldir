@@ -1,0 +1,5 @@
+module Services
+
+singleton SystemResourcesService SystemResourcesService.qml
+singleton NiriService NiriService.qml
+singleton ClipboardService ClipboardService.qml

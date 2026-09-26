@@ -1,0 +1,12 @@
+style=/home/mark/.mark/config/wofi/style.css
+
+hide_scroll=true
+
+allow_images=true
+
+term=kitty
+
+key_down=Alt-j
+key_up=Alt-k
+key_submit=Return
+key_exit=Escape
