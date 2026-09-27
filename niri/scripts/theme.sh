@@ -5,7 +5,7 @@
 source "/home/$USER/.mark/dotfiles/rc/themerc"
 
 dir="$(dirname "$(realpath "$0")")/../config"
-vars='${THEME_ACCENT} ${THEME_SELECTION} ${THEME_BG} ${THEME_DANGER}'
+vars='${THEME_MAGENTA} ${THEME_PRIMARY} ${THEME_SELECTION} ${THEME_BG} ${THEME_DANGER}'
 
 for template in "$dir"/*.kdl.in; do
   out="${template%.in}"

@@ -25,6 +25,9 @@ U.map('t', '<C-w>j', '<C-\\><C-n><C-j>', option)
 U.map('t', '<C-w>k', '<C-\\><C-n><C-k>', option)
 U.map('t', '<C-w>l', '<C-\\><C-n><C-l>', option)
 
+-- colorizer mapping
+U.map('n', '<leader>c', ':ColorizerToggle<cr>', option)
+
 -- Plugin mappings
 vim.keymap.set('n', '<C-i>', function()
   vim.cmd("Neotree float toggle reveal")

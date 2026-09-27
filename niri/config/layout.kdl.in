@@ -59,7 +59,7 @@ layout {
         // - CSS-like notation: "rgb(255, 127, 0)", rgba(), hsl() and a few others.
 
         // Color of the ring on the active monitor.
-        active-color "${THEME_ACCENT}"
+        active-color "${THEME_MAGENTA}"
 
         // Color of the ring on inactive monitors.
         //
@@ -91,7 +91,7 @@ layout {
 
         width 2
 
-        active-color "${THEME_ACCENT}"
+        active-color "${THEME_MAGENTA}"
 
         inactive-color "${THEME_BG}"
 

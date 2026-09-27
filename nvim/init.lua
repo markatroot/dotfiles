@@ -129,6 +129,14 @@ local pack = {
     name = "markview",
     src = "OXY2DEV/markview.nvim",
     ft = { 'markdown', 'md' }
+  },
+  {
+    name = "colorizer",
+    src = "catgoose/nvim-colorizer.lua",
+    pattern = "ColorizerToggle",
+    config = function()
+      require 'my_plugin.nvim-colorizer'
+    end
   }
 }
 
