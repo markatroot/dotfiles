@@ -16,11 +16,11 @@ RowLayout {
 
   function getColor() {
     if (root.batPercentage <= 20) {
-      return Fonts.colorDanger
+      return Theme.danger
     } else if (root.batPercentage <= 50) {
-      return Fonts.colorWarning
+      return Theme.warning
     } else {
-      return Fonts.colorSuccess
+      return Theme.success
     }
   }
 

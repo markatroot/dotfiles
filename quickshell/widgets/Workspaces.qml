@@ -77,7 +77,7 @@ RowLayout {
         opacity: workspaceLabel.modelData.id == focusedWorkspaceId ? 1 : 0.7
         // text: rect.modelData.idx // rect.modelData.id
         text: root.getWorkspaceIconById(workspaceLabel.modelData.idx)
-        color: Fonts.colorPrimary
+        color: Theme.primary
         font.weight: Fonts.black
         font.family: Fonts.mono
         font.pixelSize: Fonts.xxl

@@ -27,7 +27,7 @@ RowLayout {
   Text {
     // anchors.verticalCenter: parent.verticalCenter
     text: `${root.cpuUsagePercent}%`
-    color: root.cpuUsagePercent > 90 ? Fonts.colorDanger : Fonts.colorNormal
+    color: root.cpuUsagePercent > 90 ? Theme.danger : Theme.fg
     font.weight: Fonts.black
     font.family: Fonts.mono
     font.pixelSize: Fonts.lg
@@ -36,7 +36,7 @@ RowLayout {
   MultiEffect {
     source: cpuIcon
     colorization: 1.0
-    colorizationColor: Fonts.colorNormal
+    colorizationColor: Theme.fg
     Layout.alignment: Qt.AlignVCenter
     Layout.preferredWidth: cpuIcon.width
     Layout.preferredHeight: cpuIcon.height
@@ -56,7 +56,7 @@ RowLayout {
     Layout.leftMargin: 20
     Layout.rightMargin: -5
     text: `${root.memoryUsage}Gb`
-    color: Fonts.colorNormal
+    color: Theme.fg
     font.weight: Fonts.medium
     font.family: Fonts.mono
     font.pixelSize: Fonts.lg
@@ -78,7 +78,7 @@ RowLayout {
   MultiEffect {
     source: memoryIcon
     colorization: 1.0
-    colorizationColor: Fonts.colorNormal
+    colorizationColor: Theme.fg
     Layout.alignment: Qt.AlignVCenter
     Layout.preferredWidth: memoryIcon.width
     Layout.preferredHeight: memoryIcon.height
@@ -113,7 +113,7 @@ RowLayout {
   //     Text {
   //       anchors.verticalCenter: parent.verticalCenter
   //       text: `${row.cpuPercentage}%`
-  //       color: Fonts.colorNormal
+  //       color: Theme.fg
   //       font.weight: Fonts.black
   //       font.family: Fonts.mono
   //       font.pixelSize: Fonts.md
@@ -143,7 +143,7 @@ RowLayout {
   //     Text {
   //       anchors.verticalCenter: parent.verticalCenter
   //       text: `${root.memoryUsage}Gb/${root.memoryTotal}Gb`
-  //       color: Fonts.colorNormal
+  //       color: Theme.fg
   //       font.weight: Fonts.medium
   //       font.family: Fonts.mono
   //       font.pixelSize: Fonts.lg

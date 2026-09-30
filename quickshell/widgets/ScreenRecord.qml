@@ -57,6 +57,6 @@ RowLayout {
   }
 
   function getColor() {
-    return recordProcess.running ? Fonts.colorDanger : Fonts.colorNormal
+    return recordProcess.running ? Theme.danger : Theme.fg
   }
 }

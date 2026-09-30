@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.Layouts
 import Quickshell
+import QtQuick.Effects
 import "../config"
 
 RowLayout {
@@ -9,22 +10,26 @@ RowLayout {
   property var clockDate: systemClock.date
 
   Column {
-    spacing: -20
+    spacing: (textDate.height * -1) + -10 
+    opacity: .2
 
     Text {
+      id: textDate
       text: Qt.formatDateTime(root.clockDate, "ddd, MMM dd yyyy")
-      color: Theme.gutter
+      color: Theme.fg
       font.weight: Fonts.bold
       font.family: Fonts.mono
-      font.pixelSize: Fonts.xxl
+      font.pixelSize: Fonts.xxl * 1.5
       anchors.horizontalCenter: parent.horizontalCenter
     }
+
     Text {
       text: Qt.formatDateTime(root.clockDate, "hh:mmAP")
-      color: Theme.gutter
+      color: Theme.fg
       font.weight: Fonts.bold
       font.family: Fonts.mono
-      font.pixelSize: Fonts.xxl * 6
+      font.pixelSize: Fonts.xxl * 10
+      font.letterSpacing: -10
     }
   }
 

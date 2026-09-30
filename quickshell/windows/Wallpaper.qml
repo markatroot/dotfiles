@@ -24,7 +24,7 @@ PanelWindow {
   Widgets.Clock {
     id: clock
     anchors.centerIn: parent
-    anchors.verticalCenterOffset: ((root.height / 4) + 15) * -1
+    anchors.verticalCenterOffset: (clock.height * -1) + 100 // ((root.height / 4) - 200) * -1
   }
 
   Image {
@@ -35,7 +35,7 @@ PanelWindow {
     opacity: root.isHovered ? 0 : 1
     anchors.verticalCenter: parent.verticalCenter
     anchors.right: parent.right
-    anchors.verticalCenterOffset: ((root.height / 6) - 20) * -1
+    anchors.verticalCenterOffset: ((root.height / 6) - 140) * -1
     rotation: -10
   }
 
@@ -44,6 +44,6 @@ PanelWindow {
     anchors.bottom: parent.bottom
     height: root.height - (root.height / 4)
     width: root.width
-    source: Icons.imagePath("forest.png")
+    source: Icons.imagePath("forest-one-dark.png")
   }
 }

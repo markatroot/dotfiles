@@ -47,3 +47,5 @@ vim.o.pumborder = 'rounded'
 vim.o.pummaxwidth = 40
 vim.o.winborder = 'rounded'
 vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
+
+vim.o.cmdheight = 0

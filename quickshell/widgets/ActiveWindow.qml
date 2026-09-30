@@ -37,7 +37,7 @@ RowLayout {
     Text {
       opacity: NiriService.hasPreviousWindow ? 0.8 : 0
       text: "󰛁"
-      color: Fonts.colorPrimary
+      color: Theme.primary
       font.weight: Fonts.black
       font.family: Fonts.mono
       font.pixelSize: Fonts.lg
@@ -56,7 +56,7 @@ RowLayout {
       leftPadding: 4
       rightPadding: 4
       text: root.name
-      color: Fonts.colorPrimary
+      color: Theme.primary
       font.weight: Fonts.black
       font.family: Fonts.mono
       font.pixelSize: Fonts.lg
@@ -87,7 +87,7 @@ RowLayout {
       Text {
         id: currentActiveWindowTitle
         text: appTitleTextRect.truncateText(root.currentFocusedWindowTitle) 
-        color: Fonts.colorNormal
+        color: Theme.fg
         font.weight: Fonts.medium
         font.family: Fonts.mono
         font.pixelSize: Fonts.lg - 1
@@ -97,7 +97,7 @@ RowLayout {
     Text {
       opacity: NiriService.hasNextWindow ? 0.8 : 0
       text: "󰛂"
-      color: Fonts.colorPrimary
+      color: Theme.primary
       font.weight: Fonts.black
       font.family: Fonts.mono
       font.pixelSize: Fonts.lg

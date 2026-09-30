@@ -51,7 +51,7 @@ RowLayout {
     // anchors.fill: wifiIcon
     source: iconImage
     colorization: 1.0
-    colorizationColor: Fonts.colorNormal
+    colorizationColor: Theme.fg
     Layout.alignment: Qt.AlignVCenter
     Layout.preferredWidth: iconImage.width
     Layout.preferredHeight: iconImage.height

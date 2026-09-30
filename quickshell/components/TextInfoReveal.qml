@@ -13,7 +13,7 @@ Rectangle {
 
   property int fontSize: Fonts.md
 
-  property string textColor: Fonts.colorNormal
+  property string textColor: Theme.fg
 
   Layout.preferredWidth: root.show || mouseArea.containsMouse ? labelText.width : 0
   width: Layout.preferredWidth   // keep width in sync so clip works visually
@@ -32,7 +32,7 @@ Rectangle {
     anchors.centerIn: parent
     id: labelText
     text: root.text
-    color: Fonts.colorNormal
+    color: Theme.fg
     font.weight: Fonts.black
     font.family: Fonts.mono
     font.pixelSize: root.fontSize

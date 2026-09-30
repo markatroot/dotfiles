@@ -74,6 +74,10 @@ require('neo-tree').setup({
       folder_empty = "",
       default = "",
     },
+    file_size = { enabled = false },
+    last_modified = { enabled = false },
+    type = { enabled = false },
+    created = { enabled = false },
   },
 })
 

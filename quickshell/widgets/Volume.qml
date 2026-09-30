@@ -46,7 +46,7 @@ RowLayout {
   MultiEffect {
     source: volumeIcon
     colorization: 1.0
-    colorizationColor: Fonts.colorNormal
+    colorizationColor: Theme.fg
     Layout.alignment: Qt.AlignVCenter
     Layout.preferredWidth: volumeIcon.width
     Layout.preferredHeight: volumeIcon.height
