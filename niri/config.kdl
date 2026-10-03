@@ -1,3 +1,4 @@
+include "config/environments.kdl"
 // This config is in the KDL format: https://kdl.dev
 // "/-" comments out the following node.
 // Check the wiki for a full description of the configuration:
@@ -85,3 +86,4 @@ include "config/binds.kdl"
 include "config/gestures.kdl"
 
 include "config/overview.kdl"
+

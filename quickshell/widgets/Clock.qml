@@ -11,7 +11,6 @@ RowLayout {
 
   Column {
     spacing: (textDate.height * -1) + -10 
-    opacity: .2
 
     Text {
       id: textDate
@@ -21,6 +20,7 @@ RowLayout {
       font.family: Fonts.mono
       font.pixelSize: Fonts.xxl * 1.5
       anchors.horizontalCenter: parent.horizontalCenter
+      opacity: .3
     }
 
     Text {
@@ -30,6 +30,7 @@ RowLayout {
       font.family: Fonts.mono
       font.pixelSize: Fonts.xxl * 10
       font.letterSpacing: -10
+      opacity: .2
     }
   }
 

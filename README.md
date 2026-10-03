@@ -32,7 +32,7 @@ See each subdirectory's own README for details — `niri`, `quickshell`, and `nv
 
 No single shared theme file — colors are duplicated per app:
 
-- **One Dark** — kitty (`current-theme.conf`, OneDark-Pro), foot (`foot.ini` `[colors-dark]`), niri inactive focus-ring color (`#3e4451`; the border is `off`)
+- **One Dark** — kitty (`current-theme.conf`, OneDark-Pro), foot (`colors.ini`, rendered from themerc by `niri/scripts/theme.sh` and included by `foot.ini`), niri inactive focus-ring color (`#3e4451`; the border is `off`)
 - **Catppuccin Mocha** — kitty's `dark-theme.auto.conf` (applied automatically in OS dark mode)
 - **Dracula**-ish purples (`#bd93f9`, `#282a36`, `#44475a`) — wofi, niri active focus ring (`#bd93f9`), yazi (`dracula` flavor)
 - **Comic Code** — primary font across foot (`foot.ini`), kitty (`Comic Code Ligatures`), and satty; exceptions: `minimal_foot.ini` uses Macon, wofi uses Cascursive

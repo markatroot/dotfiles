@@ -1,0 +1,25 @@
+# colors.ini is generated from colors.ini.in by niri/scripts/theme.sh (also run
+# at niri startup). Edit colors.ini.in; ${THEME_*} colors come from themerc.
+
+[colors-dark]
+alpha=.9
+cursor=${THEME_BG} ${THEME_FG}
+foreground=${THEME_FG}
+background=${THEME_BG}
+regular0=${THEME_BLACK}
+regular1=${THEME_RED}
+regular2=${THEME_GREEN}
+regular3=${THEME_YELLOW}
+regular4=${THEME_BLUE}
+regular5=${THEME_MAGENTA}
+regular6=${THEME_CYAN}
+regular7=${THEME_WHITE}
+bright0=${THEME_BRIGHT_BLACK}
+bright1=${THEME_BRIGHT_RED}
+bright2=${THEME_BRIGHT_GREEN}
+bright3=${THEME_BRIGHT_YELLOW}
+bright4=${THEME_BRIGHT_BLUE}
+bright5=${THEME_BRIGHT_MAGENTA}
+bright6=${THEME_BRIGHT_CYAN}
+bright7=${THEME_BRIGHT_WHITE}
+selection-background=${THEME_SELECTION}

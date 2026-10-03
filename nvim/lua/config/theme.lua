@@ -41,6 +41,9 @@ require('onedarkpro').setup({
     trouble = false,
     vim_ultest = false,
     which_key = false,
+  },
+  options = {
+    transparency = true, -- Use a transparent background?
   }
 })
 
