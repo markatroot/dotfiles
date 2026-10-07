@@ -27,8 +27,8 @@ RowLayout {
   TextInfoReveal {
     show: batteryHover.containsMouse
     text: UPower.displayDevice.state == UPowerDeviceState.Charging 
-    ? `${batIcon.secondsToHoursMinutes('Charging:', UPower.displayDevice.timeToFull)}`
-    : `${batIcon.secondsToHoursMinutes('Discharging:', UPower.displayDevice.timeToEmpty)}`
+    ? `${batIcon.secondsToHoursMinutes('', UPower.displayDevice.timeToFull)}`
+    : `${batIcon.secondsToHoursMinutes('', UPower.displayDevice.timeToEmpty)}`
   }
 
   MultiEffect {
@@ -83,7 +83,7 @@ RowLayout {
       const hours = Math.floor(seconds / 3600);
       const minutes = Math.floor((seconds % 3600) / 60);
       UPower.displayDevice.timeToEmptyChanged
-      return `${label} ${hours ? hours + 'hrs' : ''} ${minutes ? minutes + 'mins' : ''}` +
+      return `${label ? label + ' ' : ''}${hours ? hours + 'hrs' : ''} ${minutes ? minutes + 'mins' : ''}` +
       `(${(Math.floor(root.batPercentage))}%)`
     }
 

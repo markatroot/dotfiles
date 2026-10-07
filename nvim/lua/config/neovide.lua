@@ -2,9 +2,9 @@
 -- see the `vim.g.neovide` guard in lua/config/nvim.lua.
 local U = require 'config.utils'
 
-local font_family = "Comic Code Ligatures"
+local font_family = "IoskeleyMono Nerd Font Mono"
 
-vim.g.neovide_font_size = 10
+vim.g.neovide_font_size = 14
 
 -- text below applies for VimScript
 vim.o.guifont = font_family .. ":h" .. vim.g.neovide_font_size

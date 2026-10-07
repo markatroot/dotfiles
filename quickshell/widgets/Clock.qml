@@ -14,7 +14,7 @@ RowLayout {
 
     Text {
       id: textDate
-      text: Qt.formatDateTime(root.clockDate, "ddd, MMM dd yyyy")
+      text: Qt.formatDateTime(root.clockDate, "dddd, MMM dd yyyy")
       color: Theme.fg
       font.weight: Fonts.bold
       font.family: Fonts.mono
