@@ -38,9 +38,11 @@ RowLayout {
   }
 
   TextInfoReveal {
-    show: wifiHover.containsMouse
+    show: reveal.active
     text: root.signalStrength > 0 ? root.wifiName : "Not Connected"
   }
+
+  HoverReveal { id: reveal }
 
   MultiEffect {
     // anchors.fill: wifiIcon
@@ -50,12 +52,6 @@ RowLayout {
     Layout.alignment: Qt.AlignVCenter
     Layout.preferredWidth: wifiIcon.width
     Layout.preferredHeight: wifiIcon.height
-  }
-
-  MouseArea {
-    id: wifiHover
-    anchors.fill: parent
-    hoverEnabled: true // Required to detect hover without clicking
   }
 
   Image {

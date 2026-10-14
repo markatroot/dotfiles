@@ -41,3 +41,9 @@ window-rule {
   default-column-width { proportion 0.5; }
 }
 
+window-rule {
+  match app-id="flameshot"
+  open-floating true
+  open-focused true
+  default-floating-position x=0 y=0 relative-to="top-left"
+}

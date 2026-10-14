@@ -68,9 +68,9 @@ PanelWindow {
         anchors.verticalCenter: parent.verticalCenter
       }
 
-      // Widgets.SystemTray {
-      //   anchors.verticalCenter: parent.verticalCenter
-      // }
+      Widgets.SystemTray {
+        anchors.verticalCenter: parent.verticalCenter
+      }
 
       // Widgets.Clock {
       //   anchors.verticalCenter: parent.verticalCenter

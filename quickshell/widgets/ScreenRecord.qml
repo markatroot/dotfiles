@@ -26,10 +26,12 @@ RowLayout {
     command: ["pkill", "-INT", "-x", "wf-recorder"]
   }
 
-  MouseArea {
-    anchors.fill: parent
+  HoverHandler {
     cursorShape: Qt.PointingHandCursor
-    onClicked: {
+  }
+
+  TapHandler {
+    onTapped: {
       if (recordButton.recording) {
         stopProcess.running = true
       } else {

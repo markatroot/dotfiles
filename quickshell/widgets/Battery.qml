@@ -14,6 +14,8 @@ RowLayout {
 
   property int batPercentage: UPower.displayDevice.percentage * 100
 
+  property var batStatus: UPower.displayDevice.state
+
   function getColor() {
     if (root.batPercentage <= 20) {
       return Theme.danger
@@ -24,8 +26,10 @@ RowLayout {
     }
   }
 
+  HoverReveal { id: reveal }
+
   TextInfoReveal {
-    show: batteryHover.containsMouse
+    show: reveal.active
     text: UPower.displayDevice.state == UPowerDeviceState.Charging 
     ? `${batIcon.secondsToHoursMinutes('', UPower.displayDevice.timeToFull)}`
     : `${batIcon.secondsToHoursMinutes('', UPower.displayDevice.timeToEmpty)}`
@@ -38,12 +42,6 @@ RowLayout {
     Layout.alignment: Qt.AlignVCenter
     Layout.preferredWidth: batIcon.width
     Layout.preferredHeight: batIcon.height
-  }
-
-  MouseArea {
-    id: batteryHover
-    anchors.fill: parent
-    hoverEnabled: true // Required to detect hover without clicking
   }
 
   Image {
@@ -89,4 +87,5 @@ RowLayout {
 
   }
 
+  onBatStatusChanged: reveal.poke()
 }

@@ -3,6 +3,13 @@
 local P = require('custom.pack.pack')
 
 local pack = {
+  -- {
+  --   name = 'tiny-cmdline.nvim',
+  --   src = 'rachartier/tiny-cmdline.nvim',
+  --   config = function () 
+  --     require 'my_plugin.tiny-cmdline'
+  --   end
+  -- },
   {
     name = 'tree-sitter-manager.nvim',
     src = 'romus204/tree-sitter-manager.nvim',
@@ -31,6 +38,9 @@ local pack = {
   {
     name = 'nui',
     src = 'MunifTanjim/nui.nvim',
+    config = function()
+      require 'custom.cmdline.cmdline'
+    end
   },
   {
     name = 'mini-surround',

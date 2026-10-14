@@ -2,7 +2,6 @@ import QtQuick
 import QtQuick.Layouts
 import Quickshell.Services.Pipewire // Import the PipeWire service
 import Quickshell
-import QtQuick.Controls
 import QtQuick.Effects
 import "../config"
 import "../components"
@@ -37,8 +36,10 @@ RowLayout {
     return `${Quickshell.shellDir}/icons/${getVolumeIcon(volume, muted)}`
   }
 
+  HoverReveal { id: reveal }
+
   TextInfoReveal {
-    show: volumeHover.containsMouse
+    show: reveal.active
     text: `${root.volume} %`
     opacity: root.muted ? 0.5 : 1
   }
@@ -50,12 +51,13 @@ RowLayout {
     Layout.alignment: Qt.AlignVCenter
     Layout.preferredWidth: volumeIcon.width
     Layout.preferredHeight: volumeIcon.height
-  }
-
-  MouseArea {
-    id: volumeHover
-    anchors.fill: parent
-    hoverEnabled: true // Required to detect hover without clicking
+    TapHandler {
+      onTapped: {
+        if (root.sink?.audio) {
+          root.sink.audio.muted = !root.sink.audio.muted
+        }
+      }
+    }
   }
 
   Image {
@@ -71,5 +73,7 @@ RowLayout {
     objects: [root.sink]
   }
 
-}
+  onVolumeChanged: reveal.poke()
 
+  onMutedChanged: reveal.poke()
+}
