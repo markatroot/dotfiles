@@ -168,7 +168,7 @@ RowLayout {
         topPadding: 6
         bottomPadding: 6
         background: Rectangle {
-          radius: 6
+          radius: Theme.radius
           color: root.cBgAlt
           border.width: 1
           border.color: search.activeFocus ? root.cBlue : root.cHighlight
@@ -212,7 +212,7 @@ RowLayout {
           ? root.rowHeight * 2
           : Math.min(root.entries.length, root.maxVisibleItems) * root.rowHeight
         color: root.cBgAlt
-        radius: 6
+        radius: Theme.radius
         clip: true
 
         Text {

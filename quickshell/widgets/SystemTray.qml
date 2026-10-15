@@ -107,7 +107,7 @@ RowLayout {
                     implicitWidth: Math.max(160, menuColumn.implicitWidth + 8)
                     implicitHeight: menuColumn.implicitHeight + 8
                     color: Theme.bg
-                    radius: 6
+                    radius: Theme.radius
                     border.width: 1
                     border.color: Theme.selection
 
@@ -203,7 +203,7 @@ RowLayout {
                 Rectangle {
                     anchors.fill: parent
                     color: root.tooltipBg
-                    radius: 6
+                    radius: Theme.radius
                     border.width: 1
                     border.color: Theme.selection
 

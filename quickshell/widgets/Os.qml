@@ -14,8 +14,8 @@ RowLayout {
     color: Theme.info
     font.weight: Fonts.black
     font.family: Fonts.mono
-    font.pixelSize: Fonts.xxl
-    scale: 1.2
+    font.pixelSize: Fonts.lg
+    // scale: 1.2
   }
   // MultiEffect {
   //   source: osIcon

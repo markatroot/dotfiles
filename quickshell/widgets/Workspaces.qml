@@ -38,7 +38,7 @@ RowLayout {
   }
 
   Row {
-    spacing: 8
+    spacing: 6
     visible: Boolean(root.workspaces.length)
 
     Repeater {
@@ -68,24 +68,42 @@ RowLayout {
       //   implicitWidth: 16
       // }
 
-      Text {
-        id: workspaceLabel
+      Rectangle {
+        id: workspacePill
         required property var modelData
 
         required property int index
 
-        opacity: workspaceLabel.modelData.id == focusedWorkspaceId ? 1 : 0.7
-        // text: rect.modelData.idx // rect.modelData.id
-        text: root.getWorkspaceIconById(workspaceLabel.modelData.idx)
-        color: Theme.primary
-        font.weight: Fonts.black
-        font.family: Fonts.mono
-        font.pixelSize: Fonts.xxl
+        readonly property bool focused: workspacePill.modelData.id == root.focusedWorkspaceId
+
+        anchors.verticalCenter: parent.verticalCenter
+        implicitHeight: 20
+        implicitWidth: Math.max(implicitHeight + 10, workspaceLabel.implicitWidth + 16)
+        radius: Theme.radius
+        color: workspacePill.focused
+          ? Theme.magenta
+          : workspaceHover.containsMouse ? Theme.selection : "transparent"
+
+        Behavior on color { ColorAnimation { duration: 150 } }
+
+        Text {
+          id: workspaceLabel
+          anchors.centerIn: parent
+          text: workspacePill.modelData.idx
+          color: workspacePill.focused ? Theme.bg : Theme.fg
+          opacity: workspacePill.focused ? 1 : 0.6
+          font.weight: Fonts.medium
+          font.family: Fonts.mono
+          font.pixelSize: Fonts.md
+        }
 
         MouseArea {
+          id: workspaceHover
           anchors.fill: parent
+          hoverEnabled: true
+          cursorShape: Qt.PointingHandCursor
           onClicked: () => {
-            Quickshell.execDetached(["niri", "msg", "action", "focus-workspace", workspaceLabel.modelData.idx])
+            Quickshell.execDetached(["niri", "msg", "action", "focus-workspace", workspacePill.modelData.idx])
           }
         }
       }

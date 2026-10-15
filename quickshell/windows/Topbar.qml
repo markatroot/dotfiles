@@ -2,11 +2,16 @@ import Quickshell
 import QtQuick
 import QtQuick.Layouts
 import Quickshell.Wayland
+import "../config"
 import "../widgets" as Widgets
 
 PanelWindow {
   id: topbar
-  implicitHeight: 50
+
+  readonly property int barMargin: 16
+  readonly property int osPillHeight: 37
+  readonly property int pillHeight: 37
+  implicitHeight: osPillHeight
   anchors { top: true; left: true; right: true }
   color: "transparent"
   aboveWindows: true
@@ -14,73 +19,102 @@ PanelWindow {
   WlrLayershell.namespace: "quickshell:topbar"
 
   RowLayout {
-    anchors.fill: parent
-    spacing: 0
+    anchors {
+      fill: parent
+      topMargin: 5
+      leftMargin: 10
+      rightMargin: 10
+      // topMargin: topbar.barMargin
+      // leftMargin: topbar.barMargin + 4
+      // rightMargin: topbar.barMargin + 4
+    }
+    spacing: 16
 
-    // LEFT SECTION
-    Row {
-      spacing: 20
-      leftPadding: 20
-      Layout.fillHeight: true
+    // OS PILL
+    Rectangle {
+      Layout.alignment: Qt.AlignVCenter
+      implicitHeight: mainPill.height
+      implicitWidth: topbar.osPillHeight
+      radius: Theme.radius
+      color: Theme.surface
+      border.color: Theme.surfaceBorder
+      border.width: 1
 
       Widgets.Os {
-        anchors.verticalCenter: parent.verticalCenter
+        anchors.centerIn: parent
       }
-
-      Widgets.Workspaces {
-        anchors.verticalCenter: parent.verticalCenter
-      }
-
-      Widgets.ActiveWindow {
-        anchors.verticalCenter: parent.verticalCenter
-      }
-
-      // Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
-
     }
 
-    // FLEX SPACE
-    Item { Layout.fillWidth: true }
+    // MAIN PILL
+    Rectangle {
+      id: mainPill
+      Layout.fillWidth: true
+      Layout.alignment: Qt.AlignVCenter
+      implicitHeight: parent.height
+      radius: Theme.radius
+      color: Theme.surface
+      border.color: Theme.surfaceBorder
+      border.width: 1
 
-    // RIGHT SECTION
-    Row {
-      spacing: 30
-      rightPadding: 20
+      // LEFT SECTION
+      Row {
+        anchors { left: parent.left; leftMargin: 10; verticalCenter: parent.verticalCenter }
+        spacing: 20
 
-      // Widgets.ScreenRecord {
-      //   anchors.verticalCenter: parent.verticalCenter
-      // }
+        Widgets.Workspaces {
+          anchors.verticalCenter: parent.verticalCenter
+        }
 
-      Widgets.SystemResources {
-        anchors.verticalCenter: parent.verticalCenter
+        Widgets.ActiveWindow {
+          anchors.verticalCenter: parent.verticalCenter
+        }
       }
 
-      Widgets.Clipboard {
-        id: clipboard
-        anchors.verticalCenter: parent.verticalCenter
+      // RIGHT SECTION
+      Row {
+        anchors { right: parent.right; rightMargin: 10; verticalCenter: parent.verticalCenter }
+        spacing: 24
+
+        // Widgets.ScreenRecord {
+        //   anchors.verticalCenter: parent.verticalCenter
+        // }
+
+        Widgets.SystemResources {
+          anchors.verticalCenter: parent.verticalCenter
+        }
+
+        Rectangle {
+          anchors.verticalCenter: parent.verticalCenter
+          implicitWidth: 1
+          implicitHeight: parent.height
+          color: Theme.surfaceBorder
+        }
+
+        Widgets.Clipboard {
+          id: clipboard
+          anchors.verticalCenter: parent.verticalCenter
+        }
+
+        Widgets.Volume {
+          anchors.verticalCenter: parent.verticalCenter
+        }
+
+        Widgets.Network {
+          anchors.verticalCenter: parent.verticalCenter
+        }
+
+        Widgets.Battery {
+          anchors.verticalCenter: parent.verticalCenter
+        }
+
+        Widgets.SystemTray {
+          anchors.verticalCenter: parent.verticalCenter
+        }
+
+        // Widgets.Clock {
+        //   anchors.verticalCenter: parent.verticalCenter
+        // }
       }
-
-      Widgets.Volume {
-        anchors.verticalCenter: parent.verticalCenter
-      }
-
-      Widgets.Network {
-        anchors.verticalCenter: parent.verticalCenter
-      }
-
-      Widgets.Battery {
-        anchors.verticalCenter: parent.verticalCenter
-      }
-
-      Widgets.SystemTray {
-        anchors.verticalCenter: parent.verticalCenter
-      }
-
-      // Widgets.Clock {
-      //   anchors.verticalCenter: parent.verticalCenter
-      // }
-
     }
   }
 }
-

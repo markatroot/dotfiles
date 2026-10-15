@@ -23,7 +23,7 @@ Scope {
   property int spacing: 8
   property int margin: 16
   property int defaultTimeoutMs: 6000
-  property color bg: Theme.bg
+  property color bg: Theme.surface
   property color fg: Theme.fg
   property color subFg: Qt.darker(Theme.fg, 1.2)
   property color lowColor: Theme.primary
@@ -86,8 +86,10 @@ Scope {
 
             Layout.fillWidth: true
             implicitHeight: content.implicitHeight + 24
-            radius: 5
+            radius: Theme.radius
             color: root.bg
+            border.width: 1
+            border.color: Theme.surfaceBorder
             // border.width: 1
             // border.color: {
             //   switch (notification.urgency) {
@@ -176,7 +178,7 @@ Scope {
                       required property var modelData
                       implicitWidth: actionLabel.implicitWidth + 16
                       implicitHeight: 24
-                      radius: 5
+                      radius: Theme.radius
                       color: Theme.selection
 
                       Text {
