@@ -2,7 +2,7 @@
 
 Personal configuration for a Wayland desktop built on [niri](https://github.com/YaLTeR/niri) (scrolling-tile compositor) and [Quickshell](https://quickshell.outfoxxed.me/) (status bar/shell), themed with a mix of One Dark, Dracula, and Catppuccin palettes, with `Comic Code` as the primary font.
 
-This directory is expected to live at (or be symlinked from) `~/.mark/config`, exported as `$CONFIG_PATH`. Several configs (niri binds, scripts) reference `$CONFIG_PATH` directly, so that env var must be set before niri starts.
+This directory is expected to live at (or be symlinked from) `~/env/config`, exported as `$CONFIG_PATH`. Several configs (niri binds, scripts) reference `$CONFIG_PATH` directly, so that env var must be set before niri starts.
 
 ## Screenshots
 

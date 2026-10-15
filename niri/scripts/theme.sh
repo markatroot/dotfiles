@@ -3,7 +3,7 @@
 # niri watches its config, so the new colors apply as soon as this runs.
 # foot reads colors.ini on launch, so new terminals pick up the new colors.
 
-source "/home/$USER/.mark/dotfiles/rc/themerc"
+source "/home/$USER/env/dotfiles/rc/themerc"
 
 root="$(dirname "$(realpath "$0")")/../.."
 

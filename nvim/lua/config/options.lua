@@ -4,7 +4,7 @@ vim.cmd('filetype plugin indent on')
 
 -- Files / swap
 vim.opt.swapfile = false
-vim.opt.dir = '/home/mark/.mark/config/nvim/swap'
+vim.opt.dir = '/home/mark/env/config/nvim/swap'
 
 -- UI chrome
 vim.opt.laststatus = 3

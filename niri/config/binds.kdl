@@ -16,7 +16,8 @@ binds {
     // custom binds
     Mod+Return hotkey-overlay-title="Open a Terminal: Foot" {
       // spawn-sh "kitty -d \"$($CONFIG_PATH/niri/scripts/term.sh)\""
-      spawn-sh "foot -c $CONFIG_PATH/foot/foot.ini -D \"$($CONFIG_PATH/niri/scripts/term.sh)\""
+      // spawn-sh "footclient -c $CONFIG_PATH/foot/foot.ini -D \"$($CONFIG_PATH/niri/scripts/term.sh)\""
+      spawn-sh "footclient -D \"$($CONFIG_PATH/niri/scripts/term.sh)\""
     }
 
     Mod+Shift+Return hotkey-overlay-title="Open a Terminal: Foot in minimal settings" {

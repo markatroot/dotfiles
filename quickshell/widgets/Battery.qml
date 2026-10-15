@@ -1,8 +1,6 @@
 import QtQuick
 import QtQuick.Effects
 import QtQuick.Layouts
-import Quickshell
-import QtQuick.Controls
 import Quickshell.Services.UPower
 import "../config"
 import "../components"
@@ -47,7 +45,7 @@ RowLayout {
   Image {
     id: batIcon
     visible: false
-    source: `${Quickshell.shellDir}/icons/${batIcon.getIcon()}`
+    source: Icons.iconPath(batIcon.getIcon())
     sourceSize.height: Icons.imgIconHeight
     sourceSize.width: Icons.imgIconWidth
     height: sourceSize.height

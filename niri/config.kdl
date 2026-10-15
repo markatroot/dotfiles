@@ -63,8 +63,11 @@ spawn-sh-at-startup "$CONFIG_PATH/niri/scripts/theme.sh"
 // status bar
 spawn-sh-at-startup "qs"
 
+// foot server
+spawn-sh-at-startup "foot --server"
+
 // wallpaper
-// spawn-sh-at-startup "wbg ~/.mark/wallpaper/chowy_one.png"
+// spawn-sh-at-startup "wbg ~/env/wallpaper/chowy_one.png"
 
 // desktop portal for screen sharing or capturing
 spawn-sh-at-startup "./scripts/desktop-portal"

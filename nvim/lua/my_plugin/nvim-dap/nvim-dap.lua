@@ -8,7 +8,7 @@ function M.configure()
   -- Path is specific to this machine's netcoredbg install.
   dap.adapters.netcoredbg = {
     type = 'executable',
-    command = '/home/mark/.mark/lsp/netcoredbg/netcoredbg',
+    command = '/home/mark/env/lsp/netcoredbg/netcoredbg',
     args = { '--interpreter=vscode' },
   }
 

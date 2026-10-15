@@ -23,6 +23,10 @@ PanelWindow {
       leftPadding: 20
       Layout.fillHeight: true
 
+      Widgets.Os {
+        anchors.verticalCenter: parent.verticalCenter
+      }
+
       Widgets.Workspaces {
         anchors.verticalCenter: parent.verticalCenter
       }

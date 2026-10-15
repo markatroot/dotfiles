@@ -2,7 +2,7 @@
 -- instead); kept for reference.
 return {
   cmd = {
-    '/home/mark/.mark/lsp/omnisharp/OmniSharp',
+    '/home/mark/env/lsp/omnisharp/OmniSharp',
     '-z', -- https://github.com/OmniSharp/omnisharp-vscode/pull/4300
     '--hostPID',
     tostring(vim.fn.getpid()),

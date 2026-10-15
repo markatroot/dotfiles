@@ -63,13 +63,13 @@ end
 
 function M.open_nvim()
   require('telescope.builtin').find_files({
-    cwd = '~/.mark/config/nvim',
+    cwd = '~/env/config/nvim',
   })
 end
 
 function M.livegrep_nvim()
   require('telescope.builtin').live_grep(vim.tbl_extend('force', SEARCH_DEFAULTS, {
-    cwd = '~/.mark/config/nvim',
+    cwd = '~/env/config/nvim',
   }))
 end
 

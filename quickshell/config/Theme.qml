@@ -3,7 +3,7 @@ pragma Singleton
 import QtQuick
 import Quickshell
 
-// Colors come from ~/.mark/dotfiles/rc/themerc via the environment niri was
+// Colors come from ~/env/dotfiles/rc/themerc via the environment niri was
 // started with. Fallbacks (One Dark) apply when a variable isn't set.
 QtObject {
   id: root

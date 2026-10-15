@@ -126,4 +126,4 @@ Referenced by binds/scripts/startup: `foot`, `kitty`, `wofi`, `wayfreeze`, `grim
 ## Notes
 
 - Output config in `config/output.kdl` targets a laptop panel `eDP-1` at `2560x1600@60`, scale 1, position `x=1280 y=0`; adjust for your hardware (`niri msg outputs` lists connected displays).
-- `$CONFIG_PATH` is expected to be set in the environment and point at the parent of this `niri/` directory (e.g. `~/.mark/config`), since binds reference `$CONFIG_PATH/foot/...`, `$CONFIG_PATH/niri/scripts/...`, etc.
+- `$CONFIG_PATH` is expected to be set in the environment and point at the parent of this `niri/` directory (e.g. `~/env/config`), since binds reference `$CONFIG_PATH/foot/...`, `$CONFIG_PATH/niri/scripts/...`, etc.
