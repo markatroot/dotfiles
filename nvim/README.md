@@ -28,6 +28,7 @@ init.lua                   Plugin spec list + entry point
 lua/config/                Core setup: options, keymaps, theme, highlights, utils,
                            ui2 (experimental msg/cmdline UI), neovide (GUI-only settings)
 lua/custom/pack/           Thin wrapper around vim.pack (eager + filetype/command-lazy loading)
+lua/custom/cmdline/        Floating `:` cmdline built on nui.nvim
 lua/custom/menu/           Command list for the runner menu (g:menu_commands) + nui-based input.lua prompt
 lua/custom/note/           Work-log / weekly report helper (gitignored)
 lua/custom/eyecandy/       Custom statusline, tabline, winbar (statusline_global.lua is unused)
@@ -39,6 +40,7 @@ ftplugin/                  Filetype-specific settings (C#, cshtml)
 plugin/lsp.lua             LSP attach/detach wiring, auto-sourced on startup
 autoload/menu.vim          Vimscript side of the command-runner menu
 snippets/                  Snippet files (typescript; LuaSnip itself isn't installed)
+colorsXX/                  inkwell.lua colorscheme (not on the runtimepath, so unused)
 swap/                      Swapfile directory (swapfile itself is disabled; leftover .swp files, gitignored)
 ```
 
@@ -50,7 +52,7 @@ swap/                      Swapfile directory (swapfile itself is disabled; left
 - `name` — plugin name passed to `vim.pack`
 - `src` — `"user/repo"` GitHub shorthand
 - `ft` — if set, the plugin installs/loads lazily on `FileType` for those filetypes
-- `pattern` — if set, installs lazily on `CmdUndefined` for that command (currently unused by any spec)
+- `pattern` — if set, installs lazily on `CmdUndefined` for that command (used by `colorizer` for `:ColorizerToggle`)
 - `init` — runs before install
 - `config` — runs after install/load
 
@@ -62,15 +64,16 @@ Run `:PackUpdate` to update all plugins (wraps `vim.pack.update()`).
 ## Plugins
 
 **Theme / UI**
-- `onedarkpro.nvim` — colorscheme (`lua/config/theme.lua`)
-- `nui.nvim` — popup/input primitives (`lua/custom/menu/input.lua`, used for LSP code-action prompts and the Neo-tree command runner)
+- `onedarkpro.nvim` — colorscheme with a transparent background (`lua/config/theme.lua`)
+- `nui.nvim` — popup/input primitives (`lua/custom/menu/input.lua`, used for LSP code-action prompts and the Neo-tree command runner). Its spec also loads `lua/custom/cmdline/cmdline.lua`, which replaces `:` in normal/visual mode with a floating cmdline (Tab/S-Tab complete, Esc closes, counts and `'<,'>` ranges pre-filled); `<leader>;` opens the native cmdline (e.g. for `:s` live preview). `cmdheight` is 0
+- `nvim-colorizer.lua` — highlights color codes (hex, `rgb()`/`hsl()`) as backgrounds in every filetype; loaded on first `:ColorizerToggle` (`<leader>c`)
 - Custom statusline/tabline/winbar (`lua/custom/eyecandy/`)
 - Neovim's built-in `vim._core.ui2` message/cmdline UI (`lua/config/ui2.lua`)
 - Neovide settings/keymaps when running under Neovide (`lua/config/neovide.lua`)
 
 **Navigation / fuzzy finding**
 - `telescope.nvim` (+ `telescope-fzf-native.nvim`, `plenary.nvim`) — file/grep pickers and LSP pickers, see `lua/my_plugin/telescope.lua`
-- `neo-tree.nvim` — file tree, toggled with `<C-i>`; `<leader>s` on a node prompts for a shell command to run in that directory
+- `neo-tree.nvim` — file tree, toggled with `<C-i>` (size/modified/type/created columns hidden); `<leader>s` on a node prompts for a shell command to run in that directory
 
 **Editing**
 - `mini.surround` — surround text objects (`sa`/`sd`/`sr`/`sf`/`sF`/`sh`)
@@ -93,7 +96,9 @@ Run `:PackUpdate` to update all plugins (wraps `vim.pack.update()`).
 These files under `lua/my_plugin/` aren't loaded by anything (the plugin
 isn't in the `pack` table and/or nothing `require`s the module), kept for
 reference: `autoclose-nvim.lua`, `nvim-autopairs.lua`, `luasnip.lua`,
-`nvim-treesitter.lua`, `fzf.lua`, `menu.lua`, `blamer.lua`, `titlestring.lua`.
+`nvim-treesitter.lua`, `fzf.lua`, `menu.lua`, `blamer.lua`, `titlestring.lua`,
+`tiny-cmdline.lua` (its spec is commented out in `init.lua`, replaced by the
+nui cmdline).
 
 ## LSP
 
@@ -137,6 +142,9 @@ Leader is `,`.
 | `jj` (insert)                   | Escape to normal mode            |
 | `<Right>` / `<Left>`            | Resize window vertically ±5      |
 | `<Up>` / `<Down>`                | Resize window horizontally ±5    |
+| `:` (normal/visual)             | Floating cmdline (nui)           |
+| `<leader>;`                     | Native cmdline                   |
+| `<leader>c`                     | Toggle colorizer                 |
 | `<leader>p`                     | Format buffer (`:Format`; mapped on first `LspAttach`) |
 | `<C-i>`                          | Toggle Neo-tree (floating)       |
 | `<C-p>`                          | Find files                       |
@@ -165,8 +173,9 @@ A few rough edges currently in the config, left as-is:
 
 - `lua/config/mapping.lua`: `<leader>gb` calls `git.blame` (module doesn't
   exist) instead of `my_plugin.blamer`; will error if triggered.
-- `lua/config/mapping.lua`: the terminal-mode window mappings pass an
-  undefined `option` global instead of `{ silent = true }`.
+- `lua/config/mapping.lua`: the terminal-mode window mappings and the
+  `<leader>c` colorizer mapping pass an undefined `option` global instead of
+  `{ silent = true }`.
 - `lua/my_plugin/nvim-dap/nvim-dap.lua`: all DAP keymaps pass an undefined
   `options` global instead of the `opts` table defined just above them.
 - `lua/config/theme.lua`: the `ColorScheme` autocmd group is set to an

@@ -6,13 +6,15 @@ A [Quickshell](https://quickshell.outfoxxed.me/) desktop shell for a Wayland ses
 
 ## Features
 
-- **Topbar** (`windows/Topbar.qml`) — a `wlr-layer-shell` panel anchored to the top of the screen with:
-  - Niri workspaces indicator and active window title (left)
-  - CPU/memory usage, clipboard history, volume, network, and battery status (right)
-  - System tray, clock, and screen recorder widgets available but currently disabled (commented out) — re-enable by uncommenting the relevant lines in `Topbar.qml`
+- **Topbar** (`windows/Topbar.qml`) — a transparent `wlr-layer-shell` panel (namespace `quickshell:topbar`) anchored to the top of the screen, holding two bordered "pills" drawn with the `Theme.surface`/`surfaceBorder`/`radius` tokens:
+  - **OS pill** — an Arch logo (`widgets/Os.qml`)
+  - **Main pill** (full width) — on the left, Niri workspaces as numbers (the focused one is a magenta pill, the others are dimmed and highlight on hover; click to focus) and the active window title. On the right, CPU/memory usage, a divider, then clipboard history, volume (tap the icon to toggle mute), network, battery, and the system tray
+  - Volume, network, and battery show their details while hovered, and briefly when their value changes (`components/HoverReveal.qml`; changes in the first 2s after startup are ignored)
+  - System tray (`widgets/SystemTray.qml`) uses its own themed popup menu with submenu support (`widgets/TrayMenuRow.qml`) instead of the native menu
+  - Clock and screen recorder widgets exist but are commented out; uncomment them in `Topbar.qml` to turn them on
 - **Clipboard history** (`widgets/Clipboard.qml`) — clicking the topbar icon (or the `clipboard` IPC target, see below) opens a searchable `cliphist` popup as a top-right overlay layer-shell window; arrow keys/Tab to navigate, Enter to copy, Esc to close, "Clear" to wipe history
-- **Wallpaper** (`windows/Wallpaper.qml`) — a background layer-shell window (namespace `quickshell:my-wallpaper`) rendering a large date/time clock (`widgets/Clock.qml`) plus layered background images (`images/forest.png`, `images/chowy_front.png`)
-- **Notifications** (`windows/Notifications.qml`) — a minimal notification popup daemon (via `Quickshell.Services.Notifications`), one panel per screen, anchored top-right; supports images/app icons, body markup, and action buttons, auto-dismisses after the notification's timeout (6s default), and dismisses on click or ✕. Its colors are set as tunables at the top of the file rather than from `config/Fonts.qml`
+- **Wallpaper** (`windows/Wallpaper.qml`) — a background layer-shell window (namespace `quickshell:my-wallpaper`) rendering a large date/time clock (`widgets/Clock.qml`) over a `Theme.bg` fill, plus layered background images (`images/forest-one-dark.png`, `images/chowy_front.png`; `images/forest.png` is unused)
+- **Notifications** (`windows/Notifications.qml`) — a minimal notification popup daemon (via `Quickshell.Services.Notifications`), one panel per screen, anchored top-right; supports images/app icons, body markup, and action buttons, auto-dismisses after the notification's timeout (6s default), and dismisses on click or ✕. Cards use the same surface/border/radius as the topbar pills; the color tunables at the top of the file map to `Theme` colors
 - **App launcher** (`shells/launcher/shell.qml`) — a separate, self-contained Quickshell config (not loaded by `shell.qml`): a centered fuzzy-search launcher over desktop entries, toggled via the `launcher` IPC target
 
 ## Requirements
@@ -20,6 +22,7 @@ A [Quickshell](https://quickshell.outfoxxed.me/) desktop shell for a Wayland ses
 - [Quickshell](https://quickshell.outfoxxed.me/) (Qt6/QML runtime)
 - [Niri](https://github.com/YaLTeR/niri) — workspace/window state is read via `niri msg --json event-stream`
 - A Nerd Font (`SFMono Nerd Font` by default, see `config/Fonts.qml`) for icon glyphs
+- `THEME_*` color variables (from `~/env/dotfiles/rc/themerc`) in the environment Quickshell starts from. They're optional, since `config/Theme.qml` falls back to One Dark
 - [`cliphist`](https://github.com/sentriz/cliphist) + `wl-clipboard` (`wl-copy`) — clipboard history (`services/ClipboardService.qml`)
 - PipeWire (`Quickshell.Services.Pipewire`) — volume widget
 - UPower (`Quickshell.Services.UPower`) — battery widget
@@ -32,10 +35,10 @@ A [Quickshell](https://quickshell.outfoxxed.me/) desktop shell for a Wayland ses
 shell.qml               Entry point — loads the topbar, wallpaper, and notification windows
 shells/launcher/         Standalone app launcher config (separate shell.qml, run on its own)
 windows/                 Top-level PanelWindows (Topbar, Wallpaper, Notifications)
-widgets/                 Individual topbar widgets (Battery, Volume, Network, Clock, Workspaces, ...)
+widgets/                 Individual topbar widgets (Os, Workspaces, Battery, Volume, Network, SystemTray, ...)
 services/                Singleton state/services backed by shell processes (Niri, Clipboard, SystemResources)
-components/              Reusable UI pieces (Popup, MyTooltip, TextInfoReveal)
-config/                  Singletons for theming — Fonts.qml (colors/typography), Icons.qml (icon/image paths)
+components/              Reusable UI pieces (Popup, MyTooltip, TextInfoReveal, HoverReveal)
+config/                  Singletons — Theme.qml (colors + surface tokens), Fonts.qml (typography), Icons.qml (icon/image paths)
 utilities/               Setting.qml — persisted user settings (Qt.labs.settings), Utilities.qml (JSON helper)
 icons/                   SVG icons used by widgets
 images/                  Wallpaper images
@@ -44,7 +47,8 @@ scripts/node/            Auxiliary scripts (niri.js — currently an empty place
 
 ## Configuration
 
-- **Colors & fonts**: edit `config/Fonts.qml` (font family/sizes and the color palette used across the topbar widgets). Most colors are read from environment variables — `THEME_BLUE`, `THEME_FG`, `THEME_DANGER`, `THEME_WARNING`, `THEME_SUCCESS` — which must be set in the environment Quickshell is launched from.
+- **Colors**: `config/Theme.qml` reads every color from `THEME_*` environment variables (`THEME_BG`, `THEME_FG`, the 16 ANSI colors, `THEME_PRIMARY`, `THEME_SELECTION`, `THEME_DANGER`, ...) via `Quickshell.env()`, falling back to One Dark. It also defines the shared `surface`, `surfaceBorder` (`bg` lightened 1.6×), and `radius` (5) tokens used by the topbar pills, notification cards, tray menu, and clipboard popup. Change the palette in themerc, not here.
+- **Fonts**: `config/Fonts.qml` sets the font family (`mono`) and the size scale (`xs`–`xxl`).
 - **Icon/image paths**: `config/Icons.qml` resolves paths under `icons/` and `images/` relative to the shell directory.
 - **Persisted settings**: `utilities/Setting.qml` stores a user-adjustable font family and font sizes via `Qt.labs.settings`.
 - **Enabling/disabling widgets**: toggle widgets in the topbar by commenting/uncommenting entries in `windows/Topbar.qml`.

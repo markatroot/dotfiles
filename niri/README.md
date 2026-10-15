@@ -1,6 +1,6 @@
 # niri config
 
-Personal [niri](https://github.com/YaLTeR/niri) window manager configuration, using a Dracula-style purple accent (`#bd93f9`).
+Personal [niri](https://github.com/YaLTeR/niri) window manager configuration, with colors rendered from the shared `themerc` palette (One Dark magenta `#c678dd` accent by default).
 
 ![niri](../screenshots/niri.png)
 
@@ -9,9 +9,11 @@ Personal [niri](https://github.com/YaLTeR/niri) window manager configuration, us
 ```
 config.kdl              # entry point, includes everything below + startup commands
 config/
+  environments.kdl      # environment variables for spawned apps (MOZ_ENABLE_WAYLAND=1)
   input.kdl             # keyboard, touchpad, mouse, trackpoint settings
   output.kdl            # monitor (eDP-1) resolution/scale/position
-  layout.kdl            # gaps, column widths, focus ring, border, shadow
+  layout.kdl.in         # template for layout.kdl — edit this one (${THEME_*} colors)
+  layout.kdl            # generated: gaps, column widths, focus ring, border, shadow
   binds.kdl             # keybindings
   gestures.kdl          # touchpad gestures / hot corners
   animations.kdl         # animation settings
@@ -20,6 +22,7 @@ config/
   layer-rule.kdl        # layer-shell rules (Quickshell wallpaper in backdrop)
   overview.kdl          # workspace overview appearance
 scripts/
+  theme.sh               # renders *.kdl.in and foot/colors.ini.in from themerc
   term.sh                # picks the working directory for new terminals
   desktop-portal         # restarts xdg-desktop-portal for screen sharing/capture
   video-record.sh        # wf-recorder region-recording toggle (not bound to a key)
@@ -28,7 +31,9 @@ scripts/
 ## Startup
 
 On launch, `config.kdl` spawns:
+- `scripts/theme.sh` — renders the color templates from themerc (see below)
 - `qs` — status bar (Quickshell)
+- `foot --server` — so `Mod+Return` can open terminals with `footclient`
 - `scripts/desktop-portal` — sets up the correct xdg-desktop-portal backend for screen sharing
 - `dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP` — so xdg-desktop-portal-hyprland gets the required variables
 - `wl-paste` watchers piping into `cliphist` for text and image clipboard history (max 25 items each)
@@ -42,7 +47,7 @@ Mod is Super.
 **Apps**
 | Bind | Action |
 |---|---|
-| `Mod+Return` | Terminal (foot) |
+| `Mod+Return` | Terminal (`footclient`, connects to the foot server) |
 | `Mod+Shift+Return` | Terminal (foot, minimal config) |
 | `Mod+B` | Terminal (kitty) |
 | `Mod+D` | App launcher (wofi) |
@@ -108,20 +113,25 @@ New terminals open in the directory reported by `scripts/term.sh` (defaults to `
 - `com.gabm.satty` (screenshot annotator): opens floating, 400–1000×200–900.
 - `mpv`: opens floating, 400–1300×200–1000.
 - `thunar`: opens floating at 50%×50%.
+- `flameshot`: opens floating and focused, at the top-left corner.
 
 ## Layout / theming
 
 - 8px gaps, `center-focused-column "never"`, preset column widths 1/3, 1/2, 2/3, default column width 1/2.
-- Focus ring 2px, active `#bd93f9`, inactive `#3e4451`.
-- Border disabled by default (2px, active `#bd93f9`, inactive `#282c34`, urgent `#9b0000` when enabled).
+- Focus ring 2px, active `THEME_PRIMARY`, inactive `THEME_SELECTION`.
+- Border disabled by default (2px, active `THEME_PRIMARY`, inactive `THEME_BG`, urgent `THEME_DANGER` when enabled).
 - Transparent background, shadows configured (softness 30, spread 5, offset y=5, `#0007`) but disabled by default.
 - `prefer-no-csd` is set; screenshots save to `~/Pictures/Screenshots/`.
 - Overview workspace shadow is off; the Quickshell wallpaper layer (`quickshell:my-wallpaper`) is placed in the overview backdrop.
 - Hot corners are disabled.
 
+## Theme colors
+
+`config/layout.kdl` is generated — edit `config/layout.kdl.in` instead. `scripts/theme.sh` sources `~/env/dotfiles/rc/themerc` and runs `envsubst` (limited to `THEME_MAGENTA`, `THEME_PRIMARY`, `THEME_SELECTION`, `THEME_BG`, `THEME_DANGER`) over every `config/*.kdl.in`, writing the file next to it without the `.in`. It also renders `foot/colors.ini`. niri runs it at startup, and you can run it by hand after changing themerc; niri reloads its config as soon as the file changes.
+
 ## Dependencies
 
-Referenced by binds/scripts/startup: `foot`, `kitty`, `wofi`, `wayfreeze`, `grim`, `slurp`, `satty`, `cliphist`, `wl-paste`/`wl-copy`, `wpctl`, `playerctl`, `brightnessctl`, `qs` (Quickshell), `xdg-desktop-portal-hyprland`/`xdg-desktop-portal`, `killall` (for `desktop-portal`), `dbus-update-activation-environment`, `wf-recorder` + `slurp` (for `video-record.sh`).
+Referenced by binds/scripts/startup: `foot`/`footclient`, `envsubst` (gettext, for `theme.sh`), `kitty`, `wofi`, `wayfreeze`, `grim`, `slurp`, `satty`, `cliphist`, `wl-paste`/`wl-copy`, `wpctl`, `playerctl`, `brightnessctl`, `qs` (Quickshell), `xdg-desktop-portal-hyprland`/`xdg-desktop-portal`, `killall` (for `desktop-portal`), `dbus-update-activation-environment`, `wf-recorder` + `slurp` (for `video-record.sh`).
 
 ## Notes
 
