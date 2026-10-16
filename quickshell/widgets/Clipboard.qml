@@ -68,9 +68,9 @@ RowLayout {
   Image {
     id: iconImage
     visible: false
-    source: Icons.iconPath("clipboard.svg")
-    sourceSize.height: Icons.imgIconHeight - 4
-    sourceSize.width: Icons.imgIconWidth - 4
+    source: Icons.clipboard
+    sourceSize.height: Icons.imgIconHeight
+    sourceSize.width: Icons.imgIconWidth
   }
 
   // Layer-shell overlay instead of PopupWindow: xdg_popup grabs need an input

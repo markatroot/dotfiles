@@ -17,7 +17,7 @@ PanelWindow {
   WlrLayershell.exclusiveZone: -1
   color: Theme.bg
 
-  property string companionImagePath: Icons.imagePath("chowy_front.png")
+  property string companionImagePath: Icons.wallpaperCompanion
 
   property bool isHovered: false
 
@@ -44,6 +44,6 @@ PanelWindow {
     anchors.bottom: parent.bottom
     height: root.height - (root.height / 4)
     width: root.width
-    source: Icons.imagePath("forest-one-dark.png")
+    source: Icons.wallpaper
   }
 }

@@ -49,7 +49,7 @@ scripts/node/            Auxiliary scripts (niri.js — currently an empty place
 
 - **Colors**: `config/Theme.qml` reads every color from `THEME_*` environment variables (`THEME_BG`, `THEME_FG`, the 16 ANSI colors, `THEME_PRIMARY`, `THEME_SELECTION`, `THEME_DANGER`, ...) via `Quickshell.env()`, falling back to One Dark. It also defines the shared `surface`, `surfaceBorder` (`bg` lightened 1.6×), and `radius` (5) tokens used by the topbar pills, notification cards, tray menu, and clipboard popup. Change the palette in themerc, not here.
 - **Fonts**: `config/Fonts.qml` sets the font family (`mono`) and the size scale (`xs`–`xxl`).
-- **Icon/image paths**: `config/Icons.qml` resolves paths under `icons/` and `images/` relative to the shell directory.
+- **Icons/images**: `config/Icons.qml` is the single registry for every icon and image. Widgets use its named properties (`Icons.cpu`, `Icons.wallpaper`, …) or state helpers (`Icons.battery(percent, charging)`, `Icons.volume(level, muted)`, `Icons.wifi(strength, connected)`) instead of filenames, so swapping an icon set only touches that file.
 - **Persisted settings**: `utilities/Setting.qml` stores a user-adjustable font family and font sizes via `Qt.labs.settings`.
 - **Enabling/disabling widgets**: toggle widgets in the topbar by commenting/uncommenting entries in `windows/Topbar.qml`.
 

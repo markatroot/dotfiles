@@ -17,25 +17,9 @@ RowLayout {
 
   readonly property real signalStrength: activeNetwork ? activeNetwork.signalStrength : 0
 
-  readonly property string icon: {
-    if (!Networking.wifiEnabled || !activeNetwork) return Icons.iconPath(`wifi-off.svg`)
-    // if (!active) return "network-wireless-offline-symbolic"
-    return Icons.iconPath(root.getWifiIcon(signalStrength))
-  }
+  readonly property string icon: Icons.wifi(signalStrength, Networking.wifiEnabled && !!activeNetwork)
 
   readonly property string wifiName: activeNetwork ? activeNetwork.name : ""
-
-  function getWifiIcon(strength) {
-    if (strength <= 0)
-      return "wifi-off.svg";
-    if (strength < 0.25)
-    return "wifi-zero.svg";
-    if (strength < 0.50)
-      return "wifi-low.svg";
-    if (strength < 0.75)
-      return "wifi-high.svg";
-    return "wifi.svg";
-  }
 
   TextInfoReveal {
     show: reveal.active
@@ -58,9 +42,9 @@ RowLayout {
     id: wifiIcon
     visible: false
     verticalAlignment: Text.AlignVCenter
-    source: Quickshell.iconPath(root.icon)
-    sourceSize.height: Icons.imgIconHeight - 2
-    sourceSize.width: Icons.imgIconWidth - 2
+    source: root.icon
+    sourceSize.height: Icons.imgIconHeight
+    sourceSize.width: Icons.imgIconWidth
   }
 
 }

@@ -53,7 +53,7 @@ RowLayout {
   Image {
     id: recordImg
     visible: false
-    source: Icons.iconPath("disc.svg")
+    source: Icons.screenRecord
     sourceSize.height: Icons.imgIconHeight - 2
     sourceSize.width: Icons.imgIconWidth - 2
   }

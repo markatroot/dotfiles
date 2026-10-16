@@ -9,7 +9,7 @@ PanelWindow {
   id: topbar
 
   readonly property int barMargin: 16
-  readonly property int osPillHeight: 43
+  readonly property int osPillHeight: 38
   readonly property int pillHeight: 37
   implicitHeight: osPillHeight
   anchors { top: true; left: true; right: true }
@@ -34,32 +34,20 @@ PanelWindow {
     Rectangle {
       Layout.alignment: Qt.AlignVCenter
       implicitHeight: mainPill.height
-      implicitWidth: topbar.osPillHeight
+      implicitWidth: Math.max(topbar.osPillHeight, osPillRow.implicitWidth + 28)
       radius: Theme.radius
       color: Theme.surface
       border.color: Theme.surfaceBorder
       border.width: 1
 
-      Widgets.Os {
-        anchors.centerIn: parent
-      }
-    }
-
-    // MAIN PILL
-    Rectangle {
-      id: mainPill
-      Layout.fillWidth: true
-      Layout.alignment: Qt.AlignVCenter
-      implicitHeight: parent.height
-      radius: Theme.radius
-      color: Theme.surface
-      border.color: Theme.surfaceBorder
-      border.width: 1
-
-      // LEFT SECTION
       Row {
-        anchors { left: parent.left; leftMargin: 10; verticalCenter: parent.verticalCenter }
+        id: osPillRow
+        anchors.centerIn: parent
         spacing: 20
+
+        Widgets.Os {
+          anchors.verticalCenter: parent.verticalCenter
+        }
 
         Widgets.Workspaces {
           anchors.verticalCenter: parent.verticalCenter
@@ -69,9 +57,24 @@ PanelWindow {
           anchors.verticalCenter: parent.verticalCenter
         }
       }
+    }
+
+    Item { Layout.fillWidth: true }
+
+    // MAIN PILL
+    Rectangle {
+      id: mainPill
+      Layout.alignment: Qt.AlignVCenter
+      implicitHeight: parent.height
+      implicitWidth: rightSection.implicitWidth + 20
+      radius: Theme.radius
+      color: Theme.surface
+      border.color: Theme.surfaceBorder
+      border.width: 1
 
       // RIGHT SECTION
       Row {
+        id: rightSection
         anchors { right: parent.right; rightMargin: 10; verticalCenter: parent.verticalCenter }
         spacing: 24
 

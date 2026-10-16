@@ -7,15 +7,15 @@ RowLayout {
   Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
   Layout.fillHeight: true
 
-  property string icon: Icons.iconPath("arch-linux.svg")
+  property string icon: Icons.os
 
   Text {
     text: ""
     color: Theme.info
     font.weight: Fonts.black
     font.family: Fonts.mono
-    font.pixelSize: Fonts.lg
-    // scale: 1.2
+    font.pixelSize: Icons.imgIconHeight
+    scale: 1.2
   }
   // MultiEffect {
   //   source: osIcon

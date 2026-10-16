@@ -45,9 +45,9 @@ RowLayout {
   Image {
     id: cpuIcon
     visible: false
-    source: Icons.iconPath("cpu.svg")
-    sourceSize.height: Icons.imgIconHeight - 6
-    sourceSize.width: Icons.imgIconWidth - 6
+    source: Icons.cpu
+    sourceSize.height: Icons.imgIconHeight / 1.5
+    sourceSize.width: Icons.imgIconWidth / 1.5
     height: sourceSize.height
     width: sourceSize.width
   }
@@ -94,9 +94,9 @@ RowLayout {
   Image {
     id: memoryIcon
     visible: false
-    source: Icons.iconPath("memory-stick.svg")
-    sourceSize.height: Icons.imgIconHeight - 2
-    sourceSize.width: Icons.imgIconWidth - 2
+    source: Icons.memory
+    sourceSize.height: Icons.imgIconHeight / 1.5
+    sourceSize.width: Icons.imgIconWidth / 1.5
     height: sourceSize.height
     width: sourceSize.width
   }

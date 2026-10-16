@@ -40,7 +40,7 @@ RowLayout {
       color: Theme.primary
       font.weight: Fonts.black
       font.family: Fonts.mono
-      font.pixelSize: Fonts.lg
+      font.pixelSize: Fonts.xxl
       Layout.rightMargin: 5
 
       MouseArea {
@@ -67,8 +67,7 @@ RowLayout {
     Rectangle {
       id: appTitleTextRect
 
-      readonly property int maxCharWidth: 60
-      readonly property string elideChars: "..."
+      readonly property int maxWidth: 600
 
       color: "transparent"
       clip: true
@@ -76,17 +75,15 @@ RowLayout {
       implicitHeight: currentActiveWindowTitle.height
       implicitWidth: currentActiveWindowTitle.width
 
-      function truncateText(rawText) {
-          const title = Boolean(rawText?.trim()) ? rawText?.trim() : "No title"
-          if (rawText.length > appTitleTextRect.maxCharWidth) {
-            return rawText.substring(0, appTitleTextRect.maxCharWidth - appTitleTextRect.elideChars.length) + appTitleTextRect.elideChars
-          }
-          return title
+      Behavior on implicitWidth {
+        NumberAnimation { duration: 250; easing.type: Easing.OutCubic }
       }
 
       Text {
         id: currentActiveWindowTitle
-        text: appTitleTextRect.truncateText(root.currentFocusedWindowTitle) 
+        width: Math.min(implicitWidth, appTitleTextRect.maxWidth)
+        elide: Text.ElideRight
+        text: root.currentFocusedWindowTitle?.trim() || "No title"
         color: Theme.fg
         font.weight: Fonts.medium
         font.family: Fonts.mono
@@ -100,7 +97,7 @@ RowLayout {
       color: Theme.primary
       font.weight: Fonts.black
       font.family: Fonts.mono
-      font.pixelSize: Fonts.lg
+      font.pixelSize: Fonts.xxl
       Layout.leftMargin: 8
 
       MouseArea {

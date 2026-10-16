@@ -45,35 +45,11 @@ RowLayout {
   Image {
     id: batIcon
     visible: false
-    source: Icons.iconPath(batIcon.getIcon())
-    sourceSize.height: Icons.imgIconHeight
-    sourceSize.width: Icons.imgIconWidth
+    source: Icons.battery(root.batPercentage, root.batStatus == UPowerDeviceState.Charging)
+    sourceSize.height: Icons.imgIconHeight + 3
+    sourceSize.width: Icons.imgIconWidth + 3
     height: sourceSize.height
     width: sourceSize.width
-
-    function getIcon() {
-      if (UPower.displayDevice.state == UPowerDeviceState.Charging) {
-        return 'battery-charging.svg'
-      } else {
-        if (root.batPercentage > 98) {
-          return 'battery-full.svg'
-        } else if (root.batPercentage > 80) {
-          return 'battery-full.svg'
-        } else if (root.batPercentage > 64) {
-          return 'battery-medium.svg'
-        } else if (root.batPercentage > 48) {
-          return 'battery-medium.svg'
-        } else if (root.batPercentage > 32) {
-          return 'battery-low.svg'
-        } else if (root.batPercentage > 16) {
-          return 'battery-low.svg'
-        } else if (root.batPercentage < 16) {
-          return 'battery.svg'
-        } else {
-          return 'battery.svg'
-        }
-      }
-    }
 
     function secondsToHoursMinutes(label, seconds) {
       const hours = Math.floor(seconds / 3600);
