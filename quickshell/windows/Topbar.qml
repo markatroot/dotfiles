@@ -9,7 +9,7 @@ PanelWindow {
   id: topbar
 
   readonly property int barMargin: 16
-  readonly property int osPillHeight: 37
+  readonly property int osPillHeight: 43
   readonly property int pillHeight: 37
   implicitHeight: osPillHeight
   anchors { top: true; left: true; right: true }
@@ -24,7 +24,7 @@ PanelWindow {
       topMargin: 5
       leftMargin: 10
       rightMargin: 10
-      // topMargin: topbar.barMargin
+       // topMargin: topbar.barMargin
       // leftMargin: topbar.barMargin + 4
       // rightMargin: topbar.barMargin + 4
     }

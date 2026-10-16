@@ -45,7 +45,7 @@ QtObject {
   readonly property color warning: env("THEME_WARNING", yellow)
 
   // Surfaces: topbar pills, notification cards
-  readonly property color surface: bg
-  readonly property color surfaceBorder: Qt.lighter(bg, 1.6)
+  readonly property color surface: Qt.lighter(bg, 1.3)
+  readonly property color surfaceBorder: Qt.lighter(bg, 1.8)
   readonly property int radius: 5
 }
