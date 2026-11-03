@@ -3,3 +3,4 @@ module Windows
 Topbar 1.0 Topbar.qml
 Wallpaper 1.0 Wallpaper.qml
 Notifications 1.0 Notifications.qml
+Frame 1.0 Frame.qml

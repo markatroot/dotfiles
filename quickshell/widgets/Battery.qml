@@ -29,8 +29,8 @@ RowLayout {
   TextInfoReveal {
     show: reveal.active
     text: UPower.displayDevice.state == UPowerDeviceState.Charging 
-    ? `${batIcon.secondsToHoursMinutes('', UPower.displayDevice.timeToFull)}`
-    : `${batIcon.secondsToHoursMinutes('', UPower.displayDevice.timeToEmpty)}`
+    ? `${batIcon.format('', UPower.displayDevice.timeToFull)}`
+    : `${batIcon.format('', UPower.displayDevice.timeToEmpty)}`
   }
 
   MultiEffect {
@@ -51,10 +51,9 @@ RowLayout {
     height: sourceSize.height
     width: sourceSize.width
 
-    function secondsToHoursMinutes(label, seconds) {
+    function format(label, seconds) {
       const hours = Math.floor(seconds / 3600);
       const minutes = Math.floor((seconds % 3600) / 60);
-      UPower.displayDevice.timeToEmptyChanged
       return `${label ? label + ' ' : ''}${hours ? hours + 'hrs' : ''} ${minutes ? minutes + 'mins' : ''}` +
       `(${(Math.floor(root.batPercentage))}%)`
     }

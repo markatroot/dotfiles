@@ -48,4 +48,11 @@ QtObject {
   readonly property color surface: Qt.lighter(bg, 1.3)
   readonly property color surfaceBorder: Qt.lighter(bg, 1.8)
   readonly property int radius: 5
+
+  // Screen frame: the border around the screen that the topbar pills hang
+  // from. Inner corners are rounded with frameRadius.
+  readonly property color frame: env("THEME_FRAME", surface)
+  readonly property int frameThickness: 8
+  readonly property int frameTop: 10
+  readonly property int frameRadius: 14
 }

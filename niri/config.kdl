@@ -58,6 +58,10 @@ include "config/animations.kdl"
 // (This example rule is commented out with a "/-" in front.)
 
 // theme: render *.kdl.in templates with themerc colors
+spawn-sh-at-startup "pipewire"
+spawn-sh-at-startup "wireplumber"
+spawn-sh-at-startup "pipewire-pulse"
+
 spawn-sh-at-startup "$CONFIG_PATH/niri/scripts/theme.sh"
 
 // status bar

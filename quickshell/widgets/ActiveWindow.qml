@@ -76,7 +76,7 @@ RowLayout {
       implicitWidth: currentActiveWindowTitle.width
 
       Behavior on implicitWidth {
-        NumberAnimation { duration: 250; easing.type: Easing.OutCubic }
+        NumberAnimation { duration: 750; easing.type: Easing.OutCubic }
       }
 
       Text {

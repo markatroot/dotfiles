@@ -79,6 +79,23 @@ return {
         functionLikeReturnTypes = { enabled = false },
         enumMemberValues = { enabled = false },
       },
+      tsserver = {
+        maxTsServerMemory = 2048,
+        useSyntaxServer = 'never',
+      },
+      preferences = {
+        includePackageJsonAutoImports = 'off',
+      },
+      disableAutomaticTypeAcquisition = true,
+      workspaceSymbols = { scope = 'currentProject' },
+    },
+    vtsls = {
+      experimental = {
+        completion = {
+          enableServerSideFuzzyMatch = true,
+          entriesLimit = 25,
+        },
+      },
     },
     javascript = {
       inlayHints = {
