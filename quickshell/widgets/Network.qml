@@ -21,13 +21,6 @@ RowLayout {
 
   readonly property string wifiName: activeNetwork ? activeNetwork.name : ""
 
-  TextInfoReveal {
-    show: reveal.active
-    text: root.signalStrength > 0 ? root.wifiName : "Not Connected"
-  }
-
-  HoverReveal { id: reveal }
-
   MultiEffect {
     // anchors.fill: wifiIcon
     source: wifiIcon

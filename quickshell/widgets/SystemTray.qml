@@ -24,6 +24,8 @@ RowLayout {
     spacing: 8
 
     property int iconSize: 18
+    // Number of tray context menus currently open (the topbar stays expanded meanwhile)
+    property int openMenus: 0
     property color tooltipBg: Theme.bg
     property color tooltipFg: Theme.fg
 
@@ -84,7 +86,10 @@ RowLayout {
                     }
                 }
 
-                onVisibleChanged: if (!visible) stack = []
+                onVisibleChanged: {
+                    root.openMenus += visible ? 1 : -1
+                    if (!visible) stack = []
+                }
 
                 anchor.item: trayItem
                 anchor.rect.y: trayItem.height + 6

@@ -19,14 +19,6 @@ RowLayout {
 
   readonly property string icon: Icons.volume(volume, muted)
 
-  HoverReveal { id: reveal }
-
-  TextInfoReveal {
-    show: reveal.active
-    text: `${root.volume} %`
-    opacity: root.muted ? 0.5 : 1
-  }
-
   MultiEffect {
     source: volumeIcon
     colorization: 1.0
@@ -55,8 +47,4 @@ RowLayout {
   PwObjectTracker {
     objects: [root.sink]
   }
-
-  onVolumeChanged: reveal.poke()
-
-  onMutedChanged: reveal.poke()
 }

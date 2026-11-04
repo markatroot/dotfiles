@@ -17,6 +17,9 @@ Singleton {
   // CPU package temperature in °C (-1 until a sensor is read)
   property real cpuTemp: -1
 
+  // Seconds since boot (-1 until read)
+  property real uptime: -1
+
   property real lastCpuIdle: 0
   property real lastCpuTotal: 0
 
@@ -27,6 +30,7 @@ Singleton {
 
   function updateMemProcess() {
     memProcess.running = true
+    uptimeProcess.running = true
   }
 
   function updateCPUProcess() {
@@ -108,6 +112,19 @@ done`]
       onRead: data => {
         const milli = parseInt(data.trim())
         if (!isNaN(milli)) root.cpuTemp = milli / 1000
+      }
+    }
+  }
+
+  Process {
+    id: uptimeProcess
+    command: ["cat", "/proc/uptime"]
+    running: false
+
+    stdout: SplitParser {
+      onRead: data => {
+        const secs = parseFloat(data)
+        if (!isNaN(secs)) root.uptime = secs
       }
     }
   }
