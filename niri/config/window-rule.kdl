@@ -14,7 +14,7 @@ window-rule {
 }
 
 window-rule {
-  match app-id="com.gabm.satty"
+  match app-id="sattwy"
   open-floating true
 
   min-width 400

@@ -20,6 +20,24 @@ RowLayout {
 
   readonly property var cpuUsagePercent: Math.floor(root.cpuUsageFraction * 100)
 
+  readonly property real cpuTemp: QsServices.SystemResourcesService.cpuTemp
+
+  // °C thresholds for the CPU icon color
+  readonly property int tempWarn: 60
+  readonly property int tempHigh: 80
+
+  function cpuTempColor() {
+    if (root.cpuTemp < 0) return Theme.fg
+    if (root.cpuTemp >= root.tempHigh) return Theme.danger
+    if (root.cpuTemp >= root.tempWarn) return Theme.warning
+    return Theme.success
+  }
+
+  // Text boxes reserve descender space, so their visual center sits above the
+  // box center. Shift icons up to line up with the glyphs instead of the box.
+  // (In a RowLayout with AlignVCenter, a bottom margin of 2n raises by n px.)
+  readonly property int iconLift: 1
+
   function formatResourceAbbr(value) {
     return value.replace('Gi', 'GB').replace('Mi', 'MB')
   }
@@ -31,15 +49,35 @@ RowLayout {
     font.weight: Fonts.black
     font.family: Fonts.mono
     font.pixelSize: Fonts.lg
+
+    MouseArea {
+      id: cpuUsageHover
+      anchors.fill: parent
+      hoverEnabled: true
+    }
+  }
+
+  TextInfoReveal {
+    show: (cpuUsageHover.containsMouse || cpuIconHover.containsMouse) && root.cpuTemp >= 0
+    text: `${Math.round(root.cpuTemp)}°C`
+    textColor: root.cpuTempColor()
+    fontSize: Fonts.md
   }
 
   MultiEffect {
     source: cpuIcon
     colorization: 1.0
-    colorizationColor: Theme.fg
+    Layout.bottomMargin: root.iconLift * 2
+    colorizationColor: root.cpuTempColor()
     Layout.alignment: Qt.AlignVCenter
     Layout.preferredWidth: cpuIcon.width
     Layout.preferredHeight: cpuIcon.height
+
+    MouseArea {
+      id: cpuIconHover
+      anchors.fill: parent
+      hoverEnabled: true
+    }
   }
 
   Image {
@@ -78,6 +116,7 @@ RowLayout {
   MultiEffect {
     source: memoryIcon
     colorization: 1.0
+    Layout.bottomMargin: root.iconLift * 2
     colorizationColor: Theme.fg
     Layout.alignment: Qt.AlignVCenter
     Layout.preferredWidth: memoryIcon.width

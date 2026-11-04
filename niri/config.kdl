@@ -59,7 +59,9 @@ include "config/animations.kdl"
 
 // theme: render *.kdl.in templates with themerc colors
 spawn-sh-at-startup "pipewire"
+
 spawn-sh-at-startup "wireplumber"
+
 spawn-sh-at-startup "pipewire-pulse"
 
 spawn-sh-at-startup "$CONFIG_PATH/niri/scripts/theme.sh"
@@ -69,6 +71,8 @@ spawn-sh-at-startup "qs"
 
 // foot server
 spawn-sh-at-startup "foot --server"
+
+spawn-sh-at-startup "brightnessctl set 20%"
 
 // wallpaper
 // spawn-sh-at-startup "wbg ~/env/wallpaper/chowy_one.png"

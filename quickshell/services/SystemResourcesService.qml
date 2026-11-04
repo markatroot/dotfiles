@@ -14,6 +14,9 @@ Singleton {
 
   property real cpuPerc: 0
 
+  // CPU package temperature in °C (-1 until a sensor is read)
+  property real cpuTemp: -1
+
   property real lastCpuIdle: 0
   property real lastCpuTotal: 0
 
@@ -28,6 +31,7 @@ Singleton {
 
   function updateCPUProcess() {
     cpuProcess.running = true
+    cpuTempProcess.running = true
   }
 
   // Memory usage
@@ -80,6 +84,30 @@ END {
           root.lastCpuIdle = idle
           root.lastCpuTotal = total
         }
+      }
+    }
+  }
+
+  // CPU temperature: hwmon indexes aren't stable across boots, so find the
+  // CPU sensor by name (Intel coretemp / AMD k10temp, zenpower), falling
+  // back to the x86_pkg_temp thermal zone.
+  Process {
+    id: cpuTempProcess
+    command: ["/bin/sh", "-c", `
+for d in /sys/class/hwmon/hwmon*; do
+  case "$(cat "$d/name" 2>/dev/null)" in
+    coretemp|k10temp|zenpower) cat "$d/temp1_input"; exit ;;
+  esac
+done
+for z in /sys/class/thermal/thermal_zone*; do
+  [ "$(cat "$z/type" 2>/dev/null)" = x86_pkg_temp ] && { cat "$z/temp"; exit; }
+done`]
+    running: false
+
+    stdout: SplitParser {
+      onRead: data => {
+        const milli = parseInt(data.trim())
+        if (!isNaN(milli)) root.cpuTemp = milli / 1000
       }
     }
   }
