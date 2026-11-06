@@ -27,17 +27,17 @@ PanelWindow {
     anchors.verticalCenterOffset: (clock.height * -1) + 100 // ((root.height / 4) - 200) * -1
   }
 
-  Image {
-    id: companionImage
-    source: root.companionImagePath
-    anchors.margins: 0
-    fillMode: Image.FillMode
-    opacity: root.isHovered ? 0 : 1
-    anchors.verticalCenter: parent.verticalCenter
-    anchors.right: parent.right
-    anchors.verticalCenterOffset: ((root.height / 6) - 140) * -1
-    rotation: -10
-  }
+  // Image {
+  //   id: companionImage
+  //   source: root.companionImagePath
+  //   anchors.margins: 0
+  //   fillMode: Image.FillMode
+  //   opacity: root.isHovered ? 0 : 1
+  //   anchors.verticalCenter: parent.verticalCenter
+  //   anchors.right: parent.right
+  //   anchors.verticalCenterOffset: ((root.height / 6) - 140) * -1
+  //   rotation: -10
+  // }
 
   Image {
     id: mountainImg

@@ -32,9 +32,9 @@ binds {
       spawn-sh "wofi -c $CONFIG_PATH/wofi/wofi --show drun";
     } 
 
-    Print hotkey-overlay-title="Take Screenshot" {
-      spawn-sh "wayfreeze & FREEZE_PID=$!; sleep 0.1; grim -g \"$(slurp)\" /tmp/screenshot; STATUS=$?; kill $FREEZE_PID; [ $STATUS -eq 0 ] && satty -f /tmp/screenshot -c $CONFIG_PATH/satty/config.toml";
-    }
+    // Print hotkey-overlay-title="Take Screenshot" {
+    //   spawn-sh "wayfreeze & FREEZE_PID=$!; sleep 0.1; grim -g \"$(slurp)\" /tmp/screenshot; STATUS=$?; kill $FREEZE_PID; [ $STATUS -eq 0 ] && satty -f /tmp/screenshot -c $CONFIG_PATH/satty/config.toml";
+    // }
 
     Mod+P hotkey-overlay-title="Open application: Hyprpicker" {
       spawn-sh "niri msg pick-color | grep \"Hex\" | awk '{ print $2 }' | wl-copy"
@@ -294,9 +294,9 @@ binds {
     // Mod+Space       { switch-layout "next"; }
     // Mod+Shift+Space { switch-layout "prev"; }
 
-    // Print { screenshot; }
-    // Ctrl+Print { screenshot-screen; }
-    // Alt+Print { screenshot-window; }
+    Print { screenshot; }
+    Ctrl+Print { screenshot-screen; }
+    Alt+Print { screenshot-window; }
 
     // Applications such as remote-desktop clients and software KVM switches may
     // request that niri stops processing the keyboard shortcuts defined here

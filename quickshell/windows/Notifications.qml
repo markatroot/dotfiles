@@ -3,6 +3,7 @@ import QtQuick.Layouts
 import Quickshell
 import "../config"
 import Quickshell.Wayland
+import Quickshell.Widgets
 import Quickshell.Services.Notifications
 
 // Minimal Quickshell notification popup.
@@ -37,16 +38,11 @@ Scope {
     actionsSupported: true
     bodyMarkupSupported: true
 
+    // Tracked notifications live in notifServer.trackedNotifications.
+    // dismiss()/expire() untrack them, which removes the card automatically.
     onNotification: function (notification) {
       notification.tracked = true
-      notifModel.append({
-        notification: notification
-      })
     }
-  }
-
-  ListModel {
-    id: notifModel
   }
 
   // One popup panel per screen, anchored top-right
@@ -64,7 +60,8 @@ Scope {
       margins.right: root.margin
 
       implicitWidth: root.popupWidth
-      implicitHeight: column.implicitHeight
+      implicitHeight: Math.max(1, column.implicitHeight)
+      visible: notifServer.trackedNotifications.values.length > 0
 
       color: "transparent"
 
@@ -78,11 +75,12 @@ Scope {
         spacing: root.spacing
 
         Repeater {
-          model: notifModel
+          model: notifServer.trackedNotifications
 
           delegate: Rectangle {
             id: card
-            required property var notification
+            required property var modelData
+            readonly property var notification: modelData
 
             Layout.fillWidth: true
             implicitHeight: content.implicitHeight + 24
@@ -106,25 +104,13 @@ Scope {
 
             MouseArea {
               anchors.fill: parent
-              onClicked: {
-                notification.dismiss()
-                removeSelf()
-              }
-            }
-
-            function removeSelf() {
-              for (let i = 0; i < notifModel.count; i++) {
-                if (notifModel.get(i).notification === notification) {
-                  notifModel.remove(i)
-                  break
-                }
-              }
+              onClicked: card.notification.dismiss()
             }
 
             Timer {
-              interval: notification.expireTimeout > 0 ? notification.expireTimeout : root.defaultTimeoutMs
+              interval: card.notification.expireTimeout > 0 ? card.notification.expireTimeout : root.defaultTimeoutMs
               running: true
-              onTriggered: card.removeSelf()
+              onTriggered: card.notification.expire()
             }
 
             RowLayout {
@@ -133,12 +119,22 @@ Scope {
               anchors.margins: 12
               spacing: 10
 
-              Image {
+              ClippingRectangle {
                 visible: notification.image !== "" || notification.appIcon !== ""
-                source: notification.image !== "" ? notification.image : ("image://icon/" + notification.appIcon)
                 Layout.preferredWidth: 36
                 Layout.preferredHeight: 36
-                fillMode: Image.PreserveAspectFit
+                Layout.rightMargin: 6
+                Layout.alignment: Qt.AlignTop
+                radius: width / 2
+                color: "transparent"
+
+                Image {
+                  anchors.fill: parent
+                  source: notification.image !== "" ? notification.image : ("image://icon/" + notification.appIcon)
+                  fillMode: Image.PreserveAspectCrop
+                  sourceSize.width: 72
+                  sourceSize.height: 72
+                }
               }
 
               ColumnLayout {
@@ -193,7 +189,7 @@ Scope {
                         anchors.fill: parent
                         onClicked: {
                           modelData.invoke()
-                          card.removeSelf()
+                          if (card.notification) card.notification.dismiss()
                         }
                       }
                     }
@@ -217,10 +213,7 @@ Scope {
 
                 MouseArea {
                   anchors.fill: parent
-                  onClicked: {
-                    notification.dismiss()
-                    card.removeSelf()
-                  }
+                  onClicked: card.notification.dismiss()
                 }
               }
             }

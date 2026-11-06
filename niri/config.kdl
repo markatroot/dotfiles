@@ -40,7 +40,7 @@ prefer-no-csd
 // You can change the path where screenshots are saved.
 // A ~ at the front will be expanded to the home directory.
 // The path is formatted with strftime(3) to give you the screenshot date and time.
-screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
+screenshot-path "/tmp/%Y-%m-%d %H-%M-%S.png"
 
 // You can also set this to null to disable saving screenshots to disk.
 // screenshot-path null
@@ -58,35 +58,7 @@ include "config/animations.kdl"
 // (This example rule is commented out with a "/-" in front.)
 
 // theme: render *.kdl.in templates with themerc colors
-spawn-sh-at-startup "pipewire"
-
-spawn-sh-at-startup "wireplumber"
-
-spawn-sh-at-startup "pipewire-pulse"
-
-spawn-sh-at-startup "$CONFIG_PATH/niri/scripts/theme.sh"
-
-// status bar
-spawn-sh-at-startup "qs"
-
-// foot server
-spawn-sh-at-startup "foot --server"
-
-spawn-sh-at-startup "brightnessctl set 20%"
-
-// wallpaper
-// spawn-sh-at-startup "wbg ~/env/wallpaper/chowy_one.png"
-
-// desktop portal for screen sharing or capturing
-spawn-sh-at-startup "./scripts/desktop-portal"
-
-// This will make sure that xdg-desktop-portal-hyprland can get the required variables on startup.
-spawn-sh-at-startup "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
-
-// Source a file (multi-file configs)
-spawn-sh-at-startup "wl-paste --type text --watch cliphist store -max-items 25 #Stores only text data"
-
-spawn-sh-at-startup "wl-paste --type image --watch cliphist store -max-items 25 #Stores only image data"
+include "config/spawn-sh-at-startup.kdl"
 
 include "config/window-rule.kdl"
 
@@ -98,3 +70,6 @@ include "config/gestures.kdl"
 
 include "config/overview.kdl"
 
+xwayland-satellite {
+  off
+}

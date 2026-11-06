@@ -1,0 +1,24 @@
+spawn-sh-at-startup "$CONFIG_PATH/niri/scripts/pipewire-start.sh"
+
+spawn-sh-at-startup "$CONFIG_PATH/niri/scripts/theme.sh"
+
+// status bar
+spawn-sh-at-startup "qs"
+
+// foot server
+spawn-sh-at-startup "foot --server"
+
+spawn-sh-at-startup "brightnessctl set 20%"
+
+spawn-sh-at-startup "$CONFIG_PATH/niri/scripts/satty-niri.sh"
+
+// desktop portal for screen sharing or capturing
+spawn-sh-at-startup "$CONFIG_PATH/niri/scripts/desktop-portal"
+
+// This will make sure that xdg-desktop-portal-hyprland can get the required variables on startup.
+spawn-sh-at-startup "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
+
+// Source a file (multi-file configs)
+spawn-sh-at-startup "wl-paste --type text --watch cliphist store -max-items 25 #Stores only text data"
+
+spawn-sh-at-startup "wl-paste --type image --watch cliphist store -max-items 25 #Stores only image data"
