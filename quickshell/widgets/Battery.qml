@@ -15,15 +15,22 @@ RowLayout {
   property var batStatus: UPower.displayDevice.state
 
   function getColor() {
-    if (root.batStatus == UPowerDeviceState.Charging) {
-      return Theme.accent
-    } else if (root.batPercentage <= 20) {
+    if (root.batPercentage <= 20) {
       return Theme.danger
     } else if (root.batPercentage <= 50) {
       return Theme.warning
     } else {
       return Theme.success
     }
+  }
+
+  HoverReveal { id: reveal }
+
+  TextInfoReveal {
+    show: reveal.active
+    text: UPower.displayDevice.state == UPowerDeviceState.Charging 
+    ? `${batIcon.format('', UPower.displayDevice.timeToFull)}`
+    : `${batIcon.format('', UPower.displayDevice.timeToEmpty)}`
   }
 
   MultiEffect {
@@ -43,5 +50,15 @@ RowLayout {
     sourceSize.width: Icons.imgIconWidth + 3
     height: sourceSize.height
     width: sourceSize.width
+
+    function format(label, seconds) {
+      const hours = Math.floor(seconds / 3600);
+      const minutes = Math.floor((seconds % 3600) / 60);
+      return `${label ? label + ' ' : ''}${hours ? hours + 'hrs' : ''} ${minutes ? minutes + 'mins' : ''}` +
+      `(${(Math.floor(root.batPercentage))}%)`
+    }
+
   }
+
+  onBatStatusChanged: reveal.poke()
 }

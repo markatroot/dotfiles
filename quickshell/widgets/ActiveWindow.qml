@@ -75,14 +75,14 @@ RowLayout {
       implicitHeight: currentActiveWindowTitle.height
       implicitWidth: currentActiveWindowTitle.width
 
-      Behavior on implicitWidth {
-        NumberAnimation { duration: 750; easing.type: Easing.OutCubic }
-      }
+      // Behavior on implicitWidth {
+      //   NumberAnimation { duration: 750; easing.type: Easing.OutCubic }
+      // }
 
       Text {
         id: currentActiveWindowTitle
         width: Math.min(implicitWidth, appTitleTextRect.maxWidth)
-        elide: Text.ElideRight
+        elide: Text.ElideLeft
         text: root.currentFocusedWindowTitle?.trim() || "No title"
         color: Theme.fg
         font.weight: Fonts.medium
