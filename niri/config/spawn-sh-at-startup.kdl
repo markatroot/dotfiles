@@ -10,7 +10,7 @@ spawn-sh-at-startup "foot --server"
 
 spawn-sh-at-startup "brightnessctl set 20%"
 
-spawn-sh-at-startup "$CONFIG_PATH/niri/scripts/satty-niri.sh"
+// spawn-sh-at-startup "$CONFIG_PATH/niri/scripts/satty-niri.sh"
 
 // desktop portal for screen sharing or capturing
 spawn-sh-at-startup "$CONFIG_PATH/niri/scripts/desktop-portal"

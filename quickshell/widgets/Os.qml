@@ -9,30 +9,16 @@ RowLayout {
 
   property string icon: Icons.os
 
-  Text {
-    text: ""
-    color: Theme.info
-    font.weight: Fonts.black
-    font.family: Fonts.mono
-    font.pixelSize: Icons.imgIconHeight
-    scale: 1.2
+  Image {
+    id: osIcon
+    visible: true
+    source: root.icon
+    fillMode: Image.PreserveAspectFit
+    smooth: true
+    scale: 1.1
+    mipmap: true
+    sourceSize.height: Icons.imgIconHeight
+    height: Icons.imgIconHeight
+    width: Icons.imgIconHeight * implicitWidth / Math.max(1, implicitHeight)
   }
-  // MultiEffect {
-  //   source: osIcon
-  //   colorization: 1.0
-  //   colorizationColor: Theme.fg
-  //   Layout.alignment: Qt.AlignVCenter
-  //   Layout.preferredWidth: osIcon.width
-  //   Layout.preferredHeight: osIcon.height
-  // }
-  //
-  // Image {
-  //   id: osIcon
-  //   visible: false
-  //   verticalAlignment: Text.AlignVCenter
-  //   source: Quickshell.iconPath(root.icon)
-  //   sourceSize.height: Icons.imgIconHeight - 2
-  //   sourceSize.width: Icons.imgIconWidth - 2
-  // }
 }
-

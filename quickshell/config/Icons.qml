@@ -21,7 +21,7 @@ QtObject {
   }
 
   // System
-  readonly property string os: iconPath("arch-linux.svg")
+  readonly property string os: iconPath("artix.png")
   readonly property string cpu: iconPath("cpu.svg")
   readonly property string memory: iconPath("memory.svg")
   readonly property string clipboard: iconPath("clipboard.svg")
