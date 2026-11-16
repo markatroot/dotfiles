@@ -21,10 +21,18 @@ PanelWindow {
 
   property bool isHovered: false
 
+  // Layered wallpaper: sky (back) -> clock -> mountains (front)
+  Image {
+    id: skyImg
+    anchors.fill: parent
+    fillMode: Image.PreserveAspectCrop
+    source: Icons.wallpaperSky
+  }
+
   Widgets.Clock {
     id: clock
     anchors.centerIn: parent
-    anchors.verticalCenterOffset: (clock.height * -1) + 100 // ((root.height / 4) - 200) * -1
+    anchors.verticalCenterOffset: (clock.height * -1) + 50 // ((root.height / 4) - 200) * -1
   }
 
   // Image {
@@ -41,9 +49,8 @@ PanelWindow {
 
   Image {
     id: mountainImg
-    anchors.bottom: parent.bottom
-    height: root.height - (root.height / 4)
-    width: root.width
-    source: Icons.wallpaper
+    anchors.fill: parent
+    fillMode: Image.PreserveAspectCrop
+    source: Icons.wallpaperMountains
   }
 }

@@ -50,6 +50,8 @@ QtObject {
 
   // Images
   readonly property string wallpaper: imagePath("forest-one-dark.png")
+  readonly property string wallpaperSky: imagePath("sky.png")
+  readonly property string wallpaperMountains: imagePath("mountains.png")
   readonly property string wallpaperCompanion: imagePath("chowy_front.png")
 
   // percent: 0-100

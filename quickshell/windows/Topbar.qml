@@ -20,7 +20,7 @@ PanelWindow {
   // Full-width bar with square edges.
   Rectangle {
     anchors.fill: parent
-    color: Theme.frame
+    color: "transparent" // Theme.frame
   }
 
   RowLayout {

@@ -39,7 +39,7 @@ local pack = {
     name = 'nui',
     src = 'MunifTanjim/nui.nvim',
     config = function()
-      require 'custom.cmdline.cmdline'
+      -- require 'custom.cmdline.cmdline'
     end
   },
   {
@@ -108,6 +108,7 @@ local pack = {
     name = 'blamer',
     src = 'z4p5a9/blamer.nvim',
     ft = {
+      'htmlangular',
       'javascript',
       'typescript',
       'json',
