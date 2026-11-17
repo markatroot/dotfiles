@@ -9,19 +9,19 @@ RowLayout {
   Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
   Layout.fillHeight: true
 
-  property string title: NiriService.activeWindowTitle
+  property string title: UmbrielService.activeWindowTitle
 
-  property string name: NiriService.activeWindowName
+  property string name: UmbrielService.activeWindowName
 
-  property var currentWindow: NiriService.currentWindow
+  property var currentWindow: UmbrielService.currentWindow
 
   property string lastFocusedWindowTitle: ""
 
   property string currentFocusedWindowTitle: ""
 
   onCurrentWindowChanged: {
-    root.lastFocusedWindowTitle = NiriService.lastFocusedWindow?.title ?? ""
-    root.currentFocusedWindowTitle = NiriService.currentWindow?.title ?? ""
+    root.lastFocusedWindowTitle = UmbrielService.lastFocusedWindow?.title ?? ""
+    root.currentFocusedWindowTitle = UmbrielService.currentWindow?.title ?? ""
   }
 
   RowLayout {
@@ -32,10 +32,10 @@ RowLayout {
 
     Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
 
-    visible: NiriService.hasFocusedWindow
+    visible: UmbrielService.hasFocusedWindow
 
     Text {
-      opacity: NiriService.hasPreviousWindow ? 0.8 : 0
+      opacity: UmbrielService.hasPreviousWindow ? 0.8 : 0
       text: "󰛁"
       color: Theme.primary
       font.weight: Fonts.black
@@ -46,7 +46,7 @@ RowLayout {
       MouseArea {
         anchors.fill: parent
         onClicked: () => {
-          Quickshell.execDetached(["niri", "msg", "action", "focus-column-left"])
+          UmbrielService.action("window-focus-left")
         }
       }
     }
@@ -92,7 +92,7 @@ RowLayout {
     }
 
     Text {
-      opacity: NiriService.hasNextWindow ? 0.8 : 0
+      opacity: UmbrielService.hasNextWindow ? 0.8 : 0
       text: "󰛂"
       color: Theme.primary
       font.weight: Fonts.black
@@ -103,7 +103,7 @@ RowLayout {
       MouseArea {
         anchors.fill: parent
         onClicked: () => {
-          Quickshell.execDetached(["niri", "msg", "action", "focus-column-right"])
+          UmbrielService.action("window-focus-right")
         }
       }
     }

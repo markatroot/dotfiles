@@ -1,0 +1,42 @@
+# Umbriel config (ported from ../niri)
+#
+# Found via XDG_CONFIG_DIRS, which includes $CONFIG_PATH (~/env/config).
+# Check edits with `umbriel config validate`. Most changes apply on save;
+# [general] autostart and [environment] need a restart.
+#
+# Reference: https://docs.noctalia.dev/umbriel/
+
+[include]
+files = [
+  "config/input.toml",
+  "config/output.toml",
+  "config/layout.toml",
+  "config/appearance.toml",   # generated from appearance.toml.in by scripts/theme.sh
+  "config/animation.toml",
+  "/usr/share/umbriel/effects/animation/reveal/effect.toml",  # bundled preset for windows_in
+  "config/overview.toml",
+  "config/window-rules.toml",
+  "config/layer-rules.toml",
+  "config/keybinds.toml",
+]
+
+[general]
+mod_key = "Super"
+# niri shows its hotkey overlay at startup only if configured; keep it quiet.
+show_cheatsheet = false
+# Commands run through /bin/sh -c, so $CONFIG_PATH and pipes work.
+autostart = [
+  "$CONFIG_PATH/umbriel/scripts/pipewire-start.sh",
+  "$CONFIG_PATH/umbriel/scripts/theme.sh",
+  "qs",
+  "foot --server",
+  "brightnessctl set 20%",
+  "$CONFIG_PATH/umbriel/scripts/desktop-portal",
+  "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP",
+  "wl-paste --type text --watch cliphist store -max-items 25",
+  "wl-paste --type image --watch cliphist store -max-items 25",
+]
+
+[environment]
+MOZ_ENABLE_WAYLAND = "1"
+QT_QPA_PLATFORM = "wayland"

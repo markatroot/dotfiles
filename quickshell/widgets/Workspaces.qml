@@ -9,9 +9,9 @@ RowLayout {
   Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
   Layout.fillHeight: true
 
-  property var workspaces: NiriService.workspaces
+  property var workspaces: UmbrielService.workspaces
 
-  property real focusedWorkspaceId: NiriService.focusedWorkspaceId
+  property string focusedWorkspaceId: UmbrielService.focusedWorkspaceId
 
   property var workspaceIcons: ({
     1: '󰎤',
@@ -31,7 +31,7 @@ RowLayout {
 
 
   function calculateItemOpacity(modelData) {
-    if (modelData.is_focused) {
+    if (modelData.focused) {
       return 1
     }
     return 0.5
@@ -89,7 +89,7 @@ RowLayout {
         Text {
           id: workspaceLabel
           anchors.centerIn: parent
-          text: workspacePill.modelData.idx
+          text: workspacePill.modelData.index
           color: workspacePill.focused ? Theme.bg : Theme.fg
           opacity: workspacePill.focused ? 1 : 0.6
           font.weight: Fonts.medium
@@ -103,7 +103,7 @@ RowLayout {
           hoverEnabled: true
           cursorShape: Qt.PointingHandCursor
           onClicked: () => {
-            Quickshell.execDetached(["niri", "msg", "action", "focus-workspace", workspacePill.modelData.idx])
+            UmbrielService.focusWorkspace(workspacePill.modelData)
           }
         }
       }

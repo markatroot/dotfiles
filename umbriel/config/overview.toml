@@ -1,0 +1,5 @@
+# https://docs.noctalia.dev/umbriel/workspaces-overview/
+
+# niri had hot corners off; the packaged config enables top-left.
+[hot_corners.top_left]
+enabled = false

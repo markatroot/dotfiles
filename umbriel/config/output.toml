@@ -1,0 +1,8 @@
+# https://docs.noctalia.dev/umbriel/outputs/
+# Run `umbriel outputs` to list connected outputs and their modes.
+
+[output.eDP-1]
+mode = "2560x1600@60"
+scale = 1
+transform = "normal"
+position = [1280, 0]

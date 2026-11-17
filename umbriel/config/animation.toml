@@ -1,0 +1,20 @@
+# https://docs.noctalia.dev/umbriel/animation/
+# Springs are "spring:<damping>,<stiffness>" (niri's epsilon has no equivalent).
+
+[animation.windows_move]
+curve = "spring:0.85,800"
+
+# Springs set their own length (duration_ms is ignored); lower stiffness = slower.
+[animation.windows_in]
+curve = "spring:0.7,500"
+# effect = "reveal"  # wipe in from the left; preset included from config.toml
+
+[animation.windows_out]
+curve = "spring:0.85,500"
+# effect = "reveal"  # wipe out to the left
+
+[animation.workspaces]
+curve = "spring:0.85,900"
+
+# niri's horizontal-view-movement has no separate table; column scrolling
+# follows windows_move.

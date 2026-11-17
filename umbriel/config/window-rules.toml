@@ -1,0 +1,26 @@
+# https://docs.noctalia.dev/umbriel/window-rules/
+# Rules combine in order; later values win.
+#
+# niri min/max-width/height and clip-to-geometry have no Umbriel equivalent,
+# so floating apps get a default size instead.
+
+[[window_rule]]
+match.app_id = "^satty$"
+default_floating = true
+default_floating_size_px = { width = 1000, height = 800 }
+
+[[window_rule]]
+match.app_id = "^mpv$"
+default_floating = true
+default_floating_size_px = { width = 1300, height = 800 }
+
+[[window_rule]]
+match.app_id = "^(thunar|Thunar)$"
+default_floating = true
+default_floating_size = { width = 0.5, height = 0.5 }
+
+[[window_rule]]
+match.app_id = "^flameshot$"
+default_floating = true
+default_focused = true
+default_position = { x = 0, y = 0, anchor = "top_left" }

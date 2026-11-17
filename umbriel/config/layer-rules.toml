@@ -1,0 +1,6 @@
+# https://docs.noctalia.dev/umbriel/layer-rules/
+#
+# niri needed `place-within-backdrop` for the Quickshell wallpaper. Umbriel's
+# overview mirrors background-layer surfaces into workspace previews by default
+# (workspace_wallpaper = true), and the wallpaper is on WlrLayer.Background,
+# so no rule is needed. Add [[layer_rule]] entries here for blur/dim later.

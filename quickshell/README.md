@@ -1,6 +1,6 @@
 # Quickshell Config
 
-A [Quickshell](https://quickshell.outfoxxed.me/) desktop shell for a Wayland session running the [Niri](https://github.com/YaLTeR/niri) scrolling compositor. Provides a topbar, a live wallpaper window, desktop notification popups, and a keyboard-driven clipboard history popup, all written in QML. A separate standalone app launcher shell lives in `shells/launcher/`.
+A [Quickshell](https://quickshell.outfoxxed.me/) desktop shell for a Wayland session running the [Umbriel](https://docs.noctalia.dev/umbriel/) scrolling compositor. Provides a topbar, a live wallpaper window, desktop notification popups, and a keyboard-driven clipboard history popup, all written in QML. A separate standalone app launcher shell lives in `shells/launcher/`.
 
 ![Quickshell](../screenshots/quickshell.png)
 
@@ -8,7 +8,7 @@ A [Quickshell](https://quickshell.outfoxxed.me/) desktop shell for a Wayland ses
 
 - **Topbar** (`windows/Topbar.qml`) — a transparent `wlr-layer-shell` panel (namespace `quickshell:topbar`) anchored to the top of the screen, holding two bordered "pills" drawn with the `Theme.surface`/`surfaceBorder`/`radius` tokens:
   - **OS pill** — an Arch logo (`widgets/Os.qml`)
-  - **Main pill** (full width) — on the left, Niri workspaces as numbers (the focused one is a magenta pill, the others are dimmed and highlight on hover; click to focus) and the active window title. On the right, CPU/memory usage, a divider, then clipboard history, volume (tap the icon to toggle mute), network, battery, and the system tray
+  - **Main pill** (full width) — on the left, Umbriel workspaces as numbers (occupied workspaces plus the active one; the focused one is a magenta pill, the others are dimmed and highlight on hover; click to focus) and the active window title. On the right, CPU/memory usage, a divider, then clipboard history, volume (tap the icon to toggle mute), network, battery, and the system tray
   - Volume, network, and battery show their details while hovered, and briefly when their value changes (`components/HoverReveal.qml`; changes in the first 2s after startup are ignored)
   - System tray (`widgets/SystemTray.qml`) uses its own themed popup menu with submenu support (`widgets/TrayMenuRow.qml`) instead of the native menu
   - Clock and screen recorder widgets exist but are commented out; uncomment them in `Topbar.qml` to turn them on
@@ -20,7 +20,7 @@ A [Quickshell](https://quickshell.outfoxxed.me/) desktop shell for a Wayland ses
 ## Requirements
 
 - [Quickshell](https://quickshell.outfoxxed.me/) (Qt6/QML runtime)
-- [Niri](https://github.com/YaLTeR/niri) — workspace/window state is read via `niri msg --json event-stream`
+- [Umbriel](https://docs.noctalia.dev/umbriel/) — workspace/window state is read via `umbriel subscribe workspaces,windows` (`services/UmbrielService.qml`)
 - A Nerd Font (`SFMono Nerd Font` by default, see `config/Fonts.qml`) for icon glyphs
 - `THEME_*` color variables (from `~/env/dotfiles/rc/themerc`) in the environment Quickshell starts from. They're optional, since `config/Theme.qml` falls back to One Dark
 - [`cliphist`](https://github.com/sentriz/cliphist) + `wl-clipboard` (`wl-copy`) — clipboard history (`services/ClipboardService.qml`)
@@ -36,7 +36,7 @@ shell.qml               Entry point — loads the topbar, wallpaper, and notific
 shells/launcher/         Standalone app launcher config (separate shell.qml, run on its own)
 windows/                 Top-level PanelWindows (Topbar, Wallpaper, Notifications)
 widgets/                 Individual topbar widgets (Os, Workspaces, Battery, Volume, Network, SystemTray, ...)
-services/                Singleton state/services backed by shell processes (Niri, Clipboard, SystemResources)
+services/                Singleton state/services backed by shell processes (Umbriel, Clipboard, SystemResources)
 components/              Reusable UI pieces (Popup, MyTooltip, TextInfoReveal, HoverReveal)
 config/                  Singletons — Theme.qml (colors + surface tokens), Fonts.qml (typography), Icons.qml (icon/image paths)
 utilities/               Setting.qml — persisted user settings (Qt.labs.settings), Utilities.qml (JSON helper)
@@ -61,7 +61,7 @@ This directory is expected to live at (or be symlinked to) `~/.config/quickshell
 qs
 ```
 
-(Niri starts it this way via `spawn-sh-at-startup "qs"`.)
+(Umbriel starts it this way from `general.autostart` in `umbriel/config.toml`.)
 
 or, if run directly from this path:
 
@@ -81,10 +81,10 @@ Popups are toggled through Quickshell `IpcHandler`s, so they can be bound to com
 
 | Target | Functions | Defined in | Example |
 | --- | --- | --- | --- |
-| `clipboard` | `toggle`, `show`, `hide`, `isOpen` | `widgets/Clipboard.qml` | `qs ipc call clipboard toggle` (bound to `Mod+C` in niri) |
+| `clipboard` | `toggle`, `show`, `hide`, `isOpen` | `widgets/Clipboard.qml` | `qs ipc call clipboard toggle` (bound to `Mod+C` in Umbriel) |
 | `launcher` | `toggle`, `show`, `hide` | `shells/launcher/shell.qml` | `qs -p ~/.config/quickshell/shells/launcher/shell.qml ipc call launcher toggle` |
 
 ## Notes
 
-- `widgets/Hyprland.qml` and `widgets/HyprlandActiveClient.qml` are legacy/alternate widgets for a Hyprland session and are not wired into the current Niri-based `Topbar.qml`.
-- `NiriService` and `ClipboardService` shell out to `niri` and `cliphist`/`wl-copy` respectively; both must be installed and on `PATH` for their widgets to function.
+- `widgets/Hyprland.qml` and `widgets/HyprlandActiveClient.qml` are legacy/alternate widgets for a Hyprland session and are not wired into the current Umbriel-based `Topbar.qml`.
+- `UmbrielService` and `ClipboardService` shell out to `umbriel` and `cliphist`/`wl-copy` respectively; both must be installed and on `PATH` for their widgets to function.

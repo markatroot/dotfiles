@@ -1,0 +1,25 @@
+# appearance.toml is generated from appearance.toml.in by umbriel/scripts/theme.sh
+# (also run at startup). Edit appearance.toml.in; ${THEME_*} colors come from themerc.
+# https://docs.noctalia.dev/umbriel/appearance/
+
+[appearance]
+border_width = 2
+# niri window-rule geometry-corner-radius
+corner_radius = 5
+
+[appearance.shadow]
+enabled = true
+softness = 30
+offset_x = 0
+offset_y = 5
+
+[colors]
+shadow = "#00000077"
+
+# niri's focus-ring (border was off there)
+[colors.border]
+focused = "#c678ddFF"
+unfocused = "#3e4451FF"
+
+[colors.tab_bar]
+urgent = "#e06c75FF"

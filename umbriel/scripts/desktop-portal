@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# Restart xdg-desktop-portal with the Umbriel backend for screen sharing.
+# Requires xdg-desktop-portal-umbriel. Check the backend path after
+# installing: `pacman -Ql xdg-desktop-portal-umbriel`.
+sleep 1
+killall -e xdg-desktop-portal-umbriel
+killall xdg-desktop-portal
+/usr/lib/xdg-desktop-portal-umbriel &
+sleep 2
+/usr/lib/xdg-desktop-portal &

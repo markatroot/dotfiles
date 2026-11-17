@@ -1,0 +1,11 @@
+# https://docs.noctalia.dev/umbriel/input/
+
+[input.keyboard]
+# Empty layout = system xkb settings (same as niri's empty xkb {}).
+repeat_delay = 250
+repeat_rate = 50
+numlock_toggle = true
+
+[input.touchpad]
+disable_while_typing = true
+natural_scroll = true
