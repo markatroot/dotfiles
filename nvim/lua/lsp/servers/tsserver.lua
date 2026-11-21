@@ -52,7 +52,7 @@
 
 local bin_cache = {} ---@type table<string, string>
 
---- Checks if the given tsc/tsgo cmd supports the "--lsp" arg.
+--- Checks if the given tsc cmd supports the "--lsp" arg.
 ---@param bin string
 ---@return boolean
 local function supports_lsp(bin)
@@ -126,7 +126,7 @@ return {
 
     local bins = {}
 
-    for _, bin in ipairs({ 'tsc', 'tsgo' }) do
+    for _, bin in ipairs({ 'tsc' }) do
       bins[#bins + 1] = vim.fs.joinpath(root, 'node_modules/.bin', bin)
       bins[#bins + 1] = bin
     end

@@ -2,6 +2,16 @@
 -- `vim.pack` manager (see lua/custom/pack/pack.lua) and installs them.
 local P = require('custom.pack.pack')
 
+-- Rebuild telescope-fzf-native's C library whenever it's installed/updated.
+vim.api.nvim_create_autocmd('PackChanged', {
+  callback = function(ev)
+    local d = ev.data
+    if d.spec.name == 'telescope-fzf-native' and (d.kind == 'install' or d.kind == 'update') then
+      vim.system({ 'make' }, { cwd = d.path })
+    end
+  end,
+})
+
 local pack = {
   -- {
   --   name = 'tiny-cmdline.nvim',
@@ -126,10 +136,6 @@ local pack = {
   {
     name = 'telescope',
     src = 'nvim-telescope/telescope.nvim',
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-      'nvim-telescope/telescope-fzf-native.nvim',
-    },
     config = function()
       if not vim.wo.diff then
         require 'my_plugin.telescope'

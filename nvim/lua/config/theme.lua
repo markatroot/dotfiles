@@ -47,10 +47,8 @@ require('onedarkpro').setup({
   }
 })
 
--- NOTE: `lsp` is an undefined global here (always nil), so this creates the
--- autocmd with no group, same as omitting `group` entirely.
 vim.api.nvim_create_autocmd('ColorScheme', {
-  group = lsp,
+  group = vim.api.nvim_create_augroup('ThemeHighlights', { clear = true }),
   callback = require 'config.nvim'.load_highlights
 })
 

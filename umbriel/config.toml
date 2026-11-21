@@ -18,6 +18,7 @@ files = [
   "config/window-rules.toml",
   "config/layer-rules.toml",
   "config/keybinds.toml",
+  "config/workspace.toml",
 ]
 
 [general]
@@ -36,6 +37,10 @@ autostart = [
   "wl-paste --type text --watch cliphist store -max-items 25",
   "wl-paste --type image --watch cliphist store -max-items 25",
 ]
+
+# https://docs.noctalia.dev/umbriel/effects/
+# [effects]
+# cursor = "trail"
 
 [environment]
 MOZ_ENABLE_WAYLAND = "1"

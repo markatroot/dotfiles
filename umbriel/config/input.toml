@@ -2,10 +2,13 @@
 
 [input.keyboard]
 # Empty layout = system xkb settings (same as niri's empty xkb {}).
-repeat_delay = 250
-repeat_rate = 50
+repeat_delay = 200
+repeat_rate = 30
 numlock_toggle = true
 
 [input.touchpad]
 disable_while_typing = true
 natural_scroll = true
+
+[input.focus]
+follows_mouse = "off"

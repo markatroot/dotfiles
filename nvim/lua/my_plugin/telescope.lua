@@ -1,5 +1,6 @@
 -- Telescope setup + custom pickers, bound to <C-p>/<C-o>/etc below.
-local telescope = require('telescope')
+-- Telescope itself is only required on the first picker call (see
+-- builtin()), so it costs nothing at startup.
 local M = {}
 
 local mappings = {
@@ -8,23 +9,38 @@ local mappings = {
   ['<C-j>'] = 'move_selection_next',
 }
 
--- NOTE: `borderchars = M.border` below is always nil (this file's own `M`
--- table, not `config.utils`'s `U.border`), so Telescope falls back to its
--- default border. Left as-is.
-telescope.setup({
-  preview = false,
-  defaults = {
-    file_ignore_patterns = { 'node_modules', '@girs' },
-    layout_config = {
-      height = 0.50,
-    },
-    mappings = {
-      i = mappings,
-      n = mappings,
-    },
-    borderchars = M.border,
-  },
-})
+local did_setup = false
+
+local function builtin()
+  if not did_setup then
+    did_setup = true
+    local telescope = require('telescope')
+    telescope.setup({
+      defaults = {
+        file_ignore_patterns = { 'node_modules', '@girs' },
+        layout_config = {
+          height = 0.50,
+        },
+        mappings = {
+          i = mappings,
+          n = mappings,
+        },
+      },
+      extensions = {
+        fzf = {
+          fuzzy = true,
+          override_generic_sorter = true,
+          override_file_sorter = true,
+          case_mode = 'smart_case',
+        },
+      },
+    })
+    -- Native sorter; requires build/libfzf.so (built by the PackChanged
+    -- hook in init.lua). Falls back to the Lua sorter if missing.
+    pcall(telescope.load_extension, 'fzf')
+  end
+  return require('telescope.builtin')
+end
 
 local SEARCH_DEFAULTS = {
   previewer = false,
@@ -33,42 +49,42 @@ local SEARCH_DEFAULTS = {
 }
 
 function M.find_files()
-  require('telescope.builtin').find_files(vim.tbl_extend('force', SEARCH_DEFAULTS, {
+  builtin().find_files(vim.tbl_extend('force', SEARCH_DEFAULTS, {
     hidden = true,
     cwd = vim.fn.getcwd(),
   }))
 end
 
 function M.live_grep()
-  require('telescope.builtin').live_grep(vim.tbl_extend('force', SEARCH_DEFAULTS, {
+  builtin().live_grep(vim.tbl_extend('force', SEARCH_DEFAULTS, {
     cwd = vim.fn.getcwd(),
   }))
 end
 
 function M.lsp_references()
-  require('telescope.builtin').lsp_references({ show_line = false })
+  builtin().lsp_references({ show_line = false })
 end
 
 function M.lsp_definitions()
-  require('telescope.builtin').lsp_definitions({ show_line = false })
+  builtin().lsp_definitions({ show_line = false })
 end
 
 function M.lsp_implementations()
-  require('telescope.builtin').lsp_implementations({ show_line = false })
+  builtin().lsp_implementations({ show_line = false })
 end
 
 function M.lsp_document_symbols()
-  require('telescope.builtin').lsp_document_symbols({ show_line = false })
+  builtin().lsp_document_symbols({ show_line = false })
 end
 
 function M.open_nvim()
-  require('telescope.builtin').find_files({
+  builtin().find_files({
     cwd = '~/env/config/nvim',
   })
 end
 
 function M.livegrep_nvim()
-  require('telescope.builtin').live_grep(vim.tbl_extend('force', SEARCH_DEFAULTS, {
+  builtin().live_grep(vim.tbl_extend('force', SEARCH_DEFAULTS, {
     cwd = '~/env/config/nvim',
   }))
 end
@@ -76,7 +92,7 @@ end
 function M.livegrep_current_file(args)
   local file = vim.api.nvim_buf_get_name(0)
   local dir = vim.fn.fnamemodify(file, ':h')
-  require('telescope.builtin').live_grep(vim.tbl_extend('force', SEARCH_DEFAULTS, {
+  builtin().live_grep(vim.tbl_extend('force', SEARCH_DEFAULTS, {
     cwd = dir,
   }))
 end
@@ -84,7 +100,7 @@ end
 function M.livegrep_with_file_ext(args)
   local current_buf_ext = vim.fn.expand('%:e')
   local ext = vim.fn.input('Live grep with file extension: ', current_buf_ext)
-  require('telescope.builtin').live_grep(vim.tbl_extend('force', SEARCH_DEFAULTS, {
+  builtin().live_grep(vim.tbl_extend('force', SEARCH_DEFAULTS, {
     glob_pattern = '*.' .. ext,
   }))
 end
@@ -95,20 +111,5 @@ vim.keymap.set('n', '<c-u>', M.livegrep_with_file_ext)
 vim.keymap.set('n', '<c-l>', M.livegrep_current_file)
 vim.keymap.set('n', '<c-n>', M.open_nvim)
 vim.keymap.set('n', '<c-no>', M.livegrep_nvim)
-
--- Second, separate setup() call: telescope.setup() merges into the existing
--- config, so this only adds the fzf-native extension's own options.
--- NOTE: `load_extension('fzf')` is never called, so this extension config is
--- currently inactive.
-require('telescope').setup({
-  extensions = {
-    fzf = {
-      fuzzy = true,
-      override_generic_sorter = true,
-      override_file_sorter = true,
-      case_mode = 'smart_case',
-    },
-  },
-})
 
 return M

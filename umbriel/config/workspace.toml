@@ -1,0 +1,3 @@
+[[workspace]]
+name = "default"
+layout.mode = "scrolling"

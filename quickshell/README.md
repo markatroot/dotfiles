@@ -42,7 +42,6 @@ config/                  Singletons — Theme.qml (colors + surface tokens), Fon
 utilities/               Setting.qml — persisted user settings (Qt.labs.settings), Utilities.qml (JSON helper)
 icons/                   SVG icons used by widgets
 images/                  Wallpaper images
-scripts/node/            Auxiliary scripts (niri.js — currently an empty placeholder)
 ```
 
 ## Configuration

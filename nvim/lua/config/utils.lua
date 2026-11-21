@@ -184,7 +184,7 @@ local timers = {}
 function M.debounce(func, delay_ms, timer_key)
   local timer = timers[timer_key]
   if not timer then
-    timer = vim.loop.new_timer()
+    timer = vim.uv.new_timer()
     if timer_key then
       timers[timer_key] = timer
     end

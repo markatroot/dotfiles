@@ -2,26 +2,32 @@
 -- registration (lua/lsp/servers/*.lua), and diagnostic/statusline display.
 -- Files under plugin/ are auto-sourced by Neovim on startup, so this runs
 -- without an explicit `require`.
-local api = vim.api
-local var = require 'lsp.var'
-local U = require 'config.utils'
 local M = {}
+
+-- Returns a function that requires `mod` and calls `fn` on demand, so the
+-- module (telescope, lsp.codeaction, ...) is only loaded on first keypress.
+local function lazy(mod, fn)
+  return function(...)
+    return require(mod)[fn](...)
+  end
+end
 
 -- Buffer-local keymaps applied to every LSP-attached buffer (see the
 -- LspAttach/LspDetach autocmds below).
 M.lsp_mappings = {
-  { mode = 'n', key = '<c-j>', fn = require 'lsp.diagnostic'.goto_next },
-  { mode = 'n', key = '<c-k>', fn = require 'lsp.diagnostic'.goto_prev },
-  { mode = 'n', key = '<leader>s', fn = require 'lsp.codeaction'.code_action },
-  { mode = 'n', key = '<leader>rn', fn = require 'lsp.text_document'.rename },
-  { mode = 'n', key = 'gd', fn = require 'my_plugin.telescope'.lsp_definitions },
-  { mode = 'n', key = 'K', fn = vim.lsp.buf.hover },
-  { mode = 'n', key = 'gi', fn = require 'my_plugin.telescope'.lsp_implementations },
-  { mode = 'n', key = 'gr', fn = require 'my_plugin.telescope'.lsp_references },
-  { mode = 'n', key = 'gs', fn = require 'my_plugin.telescope'.lsp_document_symbols },
-  { mode = 'n', key = '<leader>o', fn = require 'lsp.codeaction'.organize_imports },
-  { mode = 'i', key = '<c-k>', fn = vim.lsp.buf.signature_help },
-  { mode = 'n', key = '<leader>f', fn = require 'lsp.codeaction'.code_format },
+  { mode = 'n', key = '<c-j>', fn = lazy('lsp.diagnostic', 'goto_next') },
+  { mode = 'n', key = '<c-k>', fn = lazy('lsp.diagnostic', 'goto_prev') },
+  { mode = 'n', key = '<leader>s', fn = lazy('lsp.codeaction', 'code_action') },
+  { mode = 'n', key = '<leader>rn', fn = lazy('lsp.text_document', 'rename') },
+  { mode = 'n', key = 'gd', fn = lazy('my_plugin.telescope', 'lsp_definitions') },
+  { mode = 'n', key = 'K', fn = function() vim.lsp.buf.hover() end },
+  { mode = 'n', key = 'gi', fn = lazy('my_plugin.telescope', 'lsp_implementations') },
+  { mode = 'n', key = 'gr', fn = lazy('my_plugin.telescope', 'lsp_references') },
+  { mode = 'n', key = 'gs', fn = lazy('my_plugin.telescope', 'lsp_document_symbols') },
+  { mode = 'n', key = '<leader>o', fn = lazy('lsp.codeaction', 'organize_imports') },
+  { mode = 'i', key = '<c-k>', fn = function() vim.lsp.buf.signature_help() end },
+  { mode = 'n', key = '<leader>f', fn = lazy('lsp.codeaction', 'code_format') },
+  { mode = 'n', key = '<leader>p', fn = '<cmd>Format<cr>' },
   {
     mode = 'n',
     key = '<leader>rf',
@@ -31,11 +37,7 @@ M.lsp_mappings = {
       end
     end
   },
-  {
-    mode = 'n',
-    key = '<leader>ai',
-    fn = require 'lsp.codeaction'.add_missing_imports
-  },
+  { mode = 'n', key = '<leader>ai', fn = lazy('lsp.codeaction', 'add_missing_imports') },
 }
 
 -- `attach = false` servers have a config module under lua/lsp/servers/ but
@@ -45,25 +47,61 @@ local SERVERS = {
   { name = 'jsonls', attach = true },
   { name = 'csharp_ls', attach = true },
   -- { name = 'omnisharp', attach = true },
-  { name = 'vtsls', attach = true },
+  { name = 'vtsls', attach = false },
   { name = 'somesass_ls', attach = false },
-  { name = 'tsserver', attach = false },
+  { name = 'tsserver', attach = true },
   { name = 'qmlls', attach = true },
   { name = 'angularls', attach = false }
 }
 
+-- vim.lsp.enable() already starts servers only for matching filetypes, so
+-- register them once here instead of on every FileType event.
 for _, server in ipairs(SERVERS) do
-  local config = require('lsp.servers.' .. server.name)
   if server.attach then
-    vim.api.nvim_create_autocmd('FileType', {
-      pattern = config.filetypes,
-      callback = function(args)
-        vim.lsp.config(server.name, config)
-        vim.lsp.enable(server.name)
-      end,
-    })
+    vim.lsp.config(server.name, require('lsp.servers.' .. server.name))
+    vim.lsp.enable(server.name)
   end
 end
+
+-- Global diagnostic display; set once rather than on every attach.
+vim.diagnostic.config({
+  signs = false,
+  underline = true,
+  update_in_insert = false,
+  virtual_text = false,
+  virtual_lines = false,
+  float = true,
+  status = {
+    format = function(counts)
+      local format = ''
+      local strFormat = '%%#%s# %s %s '
+
+      local error = counts[vim.diagnostic.severity.ERROR]
+      if error ~= nil and error ~= 0 then
+        format = format .. (strFormat):format('MyStatusItemDiagError', error, '')
+      end
+
+      local warn = counts[vim.diagnostic.severity.WARN]
+      if warn ~= nil and warn ~= 0 then
+        format = format .. (strFormat):format('MyStatusItemDiagWarn', warn, '')
+      end
+
+      local info = counts[vim.diagnostic.severity.INFO]
+      if info ~= nil and info ~= 0 then
+        format = format .. (strFormat):format('MyStatusItemDiagInfo', info, '')
+      end
+
+      -- NOTE: uses the Info highlight group here, not a Hint one; left as-is.
+      local hint = counts[vim.diagnostic.severity.HINT]
+      if hint ~= nil and hint ~= 0 then
+        format = format .. (strFormat):format('MyStatusItemDiagInfo', hint, '')
+      end
+      return format
+    end
+  }
+})
+
+local cursorhold_group = vim.api.nvim_create_augroup('LspLineDiagnostics', { clear = true })
 
 vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('LspAttachGroup', {}),
@@ -71,106 +109,55 @@ vim.api.nvim_create_autocmd('LspAttach', {
     -- verbose LSP client logging, useful when debugging a server
     -- vim.lsp.log.set_level(vim.log.levels.DEBUG)
 
-    -- disable lsp highlight
     local client = vim.lsp.get_client_by_id(ev.data.client_id)
-    -- client.server_capabilities.semanticTokensProvider = nil
 
     vim.lsp.inlay_hint.enable(false)
-
     vim.lsp.semantic_tokens.enable(false)
 
     local opt = { buffer = ev.buf }
-    for _, value in pairs(M.lsp_mappings) do
+    for _, value in ipairs(M.lsp_mappings) do
       vim.keymap.set(value.mode, value.key, value.fn, opt)
     end
 
-    if client:supports_method('textDocument/completion') then
+    if client and client:supports_method('textDocument/completion') then
       vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = false })
     end
 
-    vim.diagnostic.config({
-      signs = false,
-      underline = true,
-      update_in_insert = false,
-      virtual_text = false,
-      virtual_lines = false,
-      float = true,
-      status = {
-        format = function(counts)
-          local format = ''
-          local strFormat = '%%#%s# %s %s '
-
-          local error = counts[vim.diagnostic.severity.ERROR]
-          if error ~= nil and error ~= 0 then
-            format = format .. (strFormat):format('MyStatusItemDiagError', error, '')
-          end
-
-          local warn = counts[vim.diagnostic.severity.WARN]
-          if warn ~= nil and warn ~= 0 then
-            format = format .. (strFormat):format('MyStatusItemDiagWarn', warn, '')
-          end
-
-          local info = counts[vim.diagnostic.severity.INFO]
-          if info ~= nil and info ~= 0 then
-            format = format .. (strFormat):format('MyStatusItemDiagInfo', info, '')
-          end
-
-          -- NOTE: uses the Info highlight group here, not a Hint one; left as-is.
-          local hint = counts[vim.diagnostic.severity.HINT]
-          if hint ~= nil and hint ~= 0 then
-            format = format .. (strFormat):format('MyStatusItemDiagInfo', hint, '')
-          end
-          return format
-        end
-      }
-    })
-
+    -- Clear this buffer's autocmds first so multiple clients (or a client
+    -- restart) don't stack duplicate CursorHold handlers.
+    vim.api.nvim_clear_autocmds({ group = cursorhold_group, buffer = ev.buf })
     vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
+      group = cursorhold_group,
+      buffer = ev.buf,
       callback = function(event)
         require 'lsp.diagnostic'.show_line_diagnostics(event.buf)
       end,
-      buffer = ev.buf, -- Apply to the current buffer
     })
 
-    vim.api.nvim_buf_set_option(ev.buf, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-    api.nvim_buf_set_option(ev.buf, 'formatexpr', 'v:lua.vim.lsp.formatexpr()')
-
-    -- The rest of this callback only applies to the biome client; bail out
-    -- for every other server attaching to the buffer.
-    vim.keymap.set('n', '<leader>p', ':Format<cr>', { silent = true })
-    -- if client.name ~= 'biome' then
-    --   vim.keymap.set('n', '<leader>p', ':Format<cr>', { silent = true })
-    --   return
-    -- end
-    --
-    -- -- Add this <leader> bound mapping so formatting the entire document is easier.
-    -- vim.keymap.set('n', '<leader>p', function()
-    --   vim.lsp.buf.format({
-    --     bufnr = ev.buf,
-    --     filter = function(fmt_ev)
-    --       -- print(vim.inspect(fmt_ev))
-    --       -- print("formatting with biome")
-    --       return fmt_ev.name == 'biome'
-    --     end
-    --   })
-    -- end, opt)
+    vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
+    vim.bo[ev.buf].formatexpr = 'v:lua.vim.lsp.formatexpr()'
   end,
 })
 
 vim.api.nvim_create_autocmd('LspDetach', {
   group = vim.api.nvim_create_augroup('LspDetachGroup', {}),
   callback = function(args)
-    local opt = { buffer = args.buf }
-    for _, value in pairs(M.lsp_mappings) do
-      if vim.fn.exists(value.mode .. 'map ' .. value.key) == 1 then
-        vim.keymap.del(value.mode, value.key, opt)
-      end
+    -- Keep keymaps/autocmds while another client is still attached.
+    local remaining = vim.tbl_filter(function(c)
+      return c.id ~= args.data.client_id
+    end, vim.lsp.get_clients({ bufnr = args.buf }))
+    if #remaining > 0 then
+      return
     end
+
+    for _, value in ipairs(M.lsp_mappings) do
+      pcall(vim.keymap.del, value.mode, value.key, { buffer = args.buf })
+    end
+    vim.api.nvim_clear_autocmds({ group = cursorhold_group, buffer = args.buf })
   end,
 })
 
 vim.api.nvim_create_autocmd('LspProgress', {
-  buffer = 0,
   callback = function(ev)
     local value = ev.data.params.value
     vim.api.nvim_echo({ { value.message or 'done' } }, false, {

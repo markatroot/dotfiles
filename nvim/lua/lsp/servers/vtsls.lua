@@ -80,13 +80,18 @@ return {
         enumMemberValues = { enabled = false },
       },
       tsserver = {
-        maxTsServerMemory = 2048,
-        useSyntaxServer = 'never',
+        maxTsServerMemory = 3072,
+        useSyntaxServer = 'auto',
+        -- Skip watching node_modules/.git; run :LspRestart after installing packages.
+        watchOptions = {
+          excludeDirectories = { '**/node_modules', '**/.git' },
+        },
       },
       preferences = {
         includePackageJsonAutoImports = 'off',
       },
       disableAutomaticTypeAcquisition = true,
+      updateImportsOnFileMove = { enabled = 'always' },
       workspaceSymbols = { scope = 'currentProject' },
     },
     vtsls = {
@@ -98,6 +103,10 @@ return {
       },
     },
     javascript = {
+      updateImportsOnFileMove = { enabled = 'always' },
+      preferences = {
+        includePackageJsonAutoImports = 'off',
+      },
       inlayHints = {
         parameterNames = { enabled = "none" },
         parameterTypes = { enabled = false },

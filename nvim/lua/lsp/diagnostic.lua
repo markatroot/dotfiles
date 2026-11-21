@@ -20,7 +20,7 @@ local float_opts = {
 
 -- NOTE: intentionally not `local` — this was a global in the original code
 -- (declared inside a do-block that didn't actually scope it). Left as-is.
-show_diagnostic_msg_timer = vim.loop.new_timer()
+show_diagnostic_msg_timer = vim.uv.new_timer()
 
 function M.show_line_diagnostics(bufnr, force)
   bufnr = bufnr or 0

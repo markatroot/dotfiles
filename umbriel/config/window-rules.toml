@@ -5,7 +5,7 @@
 # so floating apps get a default size instead.
 
 [[window_rule]]
-match.app_id = "^satty$"
+match.app_id = "^com.gabm.satty$"
 default_floating = true
 default_floating_size_px = { width = 1000, height = 800 }
 
@@ -24,3 +24,10 @@ match.app_id = "^flameshot$"
 default_floating = true
 default_focused = true
 default_position = { x = 0, y = 0, anchor = "top_left" }
+
+# Scrolling workspace: stack terminals into one shared column (dwindle-ish).
+# Mod+[ / Mod+] expels a window back out into its own column.
+[[window_rule]]
+match.app_id = "^(foot|kitty)$"
+match.layout = "scrolling"
+default_scrolling_column = "terms"

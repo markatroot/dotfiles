@@ -8,7 +8,7 @@ Theme colors live outside this repo in `~/env/dotfiles/rc/themerc`, which export
 
 ## Screenshots
 
-| niri | Quickshell | nvim |
+| niri (previous compositor) | Quickshell | nvim |
 |---|---|---|
 | ![niri](screenshots/niri.png) | ![Quickshell](screenshots/quickshell.png) | ![nvim](screenshots/nvim.png) |
 

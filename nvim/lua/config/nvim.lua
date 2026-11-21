@@ -13,10 +13,8 @@ require 'custom.menu.menu'
 require 'my_plugin.notes'
 
 -- Legacy command name kept from the old packer.nvim setup.
--- NOTE: calls M.load_hightlights (typo'd), not the M.load_highlights defined
--- below, left as-is to avoid changing existing behavior.
 vim.api.nvim_create_user_command('PackerCompileDone', function()
-  M.load_hightlights()
+  M.load_highlights()
 end, {})
 
 vim.api.nvim_create_user_command('PackUpdate', function()

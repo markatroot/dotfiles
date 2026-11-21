@@ -116,6 +116,17 @@
 "Mod+Ctrl+8" = "column-move-to-workspace 8"
 "Mod+Ctrl+9" = "column-move-to-workspace 9"
 
+# Move just the focused window (not its whole column).
+"Mod+Shift+1" = "window-move-to-workspace 1"
+"Mod+Shift+2" = "window-move-to-workspace 2"
+"Mod+Shift+3" = "window-move-to-workspace 3"
+"Mod+Shift+4" = "window-move-to-workspace 4"
+"Mod+Shift+5" = "window-move-to-workspace 5"
+"Mod+Shift+6" = "window-move-to-workspace 6"
+"Mod+Shift+7" = "window-move-to-workspace 7"
+"Mod+Shift+8" = "window-move-to-workspace 8"
+"Mod+Shift+9" = "window-move-to-workspace 9"
+
 # --- Mouse wheel --------------------------------------------------------------
 "Mod+WheelDown" = { action = "workspace-next", cooldown_ms = 150 }
 "Mod+WheelUp" = { action = "workspace-previous", cooldown_ms = 150 }
@@ -139,6 +150,10 @@
 "Mod+Comma" = "window-consume-from-right"
 # niri expel-window-from-column has no direct equivalent; closest match.
 "Mod+Period" = "window-consume-or-expel-right"
+# Pull the window on the left into this column.
+"Mod+Ctrl+Comma" = "window-consume-from-left"
+# Show the focused column's stacked windows as tabs (or back to stacked).
+"Mod+T" = { action = "column-toggle-tabbed", repeat = false }
 
 # --- Sizing -------------------------------------------------------------------
 "Mod+R" = "window-cycle-primary-extent"
