@@ -1,8 +1,6 @@
 # niri config
 
-Personal [niri](https://github.com/YaLTeR/niri) window manager configuration, with colors rendered from the shared `themerc` palette (One Dark magenta `#c678dd` accent by default).
-
-![niri](../screenshots/niri.png)
+Personal [niri](https://github.com/YaLTeR/niri) window manager configuration — no longer the active compositor (see [`../umbriel`](../umbriel/README.md)), kept as a fallback — with colors rendered from the shared `themerc` palette (One Dark magenta `#c678dd` accent by default).
 
 ## Layout
 

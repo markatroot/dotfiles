@@ -1,6 +1,8 @@
 # umbriel config
 
-Personal [Umbriel](https://docs.noctalia.dev/umbriel/) compositor config, ported from [`../niri`](../niri/README.md). Colors are rendered from the shared `themerc` palette, as with niri.
+Personal [Umbriel](https://docs.noctalia.dev/umbriel/) compositor config — the active compositor, ported from [`../niri`](../niri/README.md) (kept as a fallback). Colors are rendered from the shared `themerc` palette, as with niri.
+
+![Umbriel](../screenshots/wm.png)
 
 Umbriel finds `config.toml` through `XDG_CONFIG_DIRS`, which includes `$CONFIG_PATH`. Check edits with `umbriel config validate`.
 
@@ -9,16 +11,17 @@ Umbriel finds `config.toml` through `XDG_CONFIG_DIRS`, which includes `$CONFIG_P
 ```
 config.toml               # entry point: includes, autostart, environment
 config/
-  input.toml              # keyboard repeat, numlock, touchpad
+  input.toml              # keyboard repeat (200ms/30Hz), numlock, touchpad, focus-follows-mouse off
   output.toml             # eDP-1 mode/scale/position
   layout.toml             # scrolling layout, gaps, column width presets
   appearance.toml.in      # template for appearance.toml — edit this one (${THEME_*} colors)
   appearance.toml         # generated: border colors, corner radius, shadow
   animation.toml          # spring curves
   overview.toml           # hot corners (off)
-  window-rules.toml       # floating rules for satty, mpv, thunar, flameshot
+  window-rules.toml       # floating rules for satty, mpv, thunar, flameshot; foot/kitty share a "terms" column
   layer-rules.toml        # none needed yet (overview mirrors the background layer)
-  keybinds.toml           # keybinds, same keys as niri
+  keybinds.toml           # keybinds, same keys as niri plus a few Umbriel extras
+  workspace.toml          # default workspace (scrolling layout)
 scripts/
   theme.sh                # renders *.toml.in and foot/colors.ini.in from themerc
   term.sh                 # working directory for new terminals (copied from niri)
@@ -35,7 +38,14 @@ scripts/
 - Window rules can't set min/max sizes or `clip-to-geometry`, so satty and mpv get a default floating size instead.
 - `Mod+Shift+Slash` opens Umbriel's cheatsheet instead of niri's hotkey overlay.
 
-## Still needed before switching
+## Additions over niri
+
+- `Mod+Shift+1`–`9` moves just the focused window (not its column) to a workspace.
+- `Mod+Ctrl+Comma` pulls the window on the left into the current column.
+- `Mod+T` toggles the focused column between stacked and tabbed.
+- New foot/kitty windows stack into one shared `terms` column on scrolling workspaces.
+
+## Requirements
 
 - Packages: `umbriel-git`, `xdg-desktop-portal-umbriel`.
 - Launch with `start-umbriel` (`XDG_CURRENT_DESKTOP=umbriel` is set in `~/env/dotfiles/rc/variablesrc`).

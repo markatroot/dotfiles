@@ -8,9 +8,9 @@ Theme colors live outside this repo in `~/env/dotfiles/rc/themerc`, which export
 
 ## Screenshots
 
-| niri (previous compositor) | Quickshell | nvim |
+| Umbriel | Quickshell | nvim |
 |---|---|---|
-| ![niri](screenshots/niri.png) | ![Quickshell](screenshots/quickshell.png) | ![nvim](screenshots/nvim.png) |
+| ![Umbriel](screenshots/wm.png) | ![Quickshell](screenshots/quickshell.png) | ![nvim](screenshots/nvim.png) |
 
 ## Layout
 
@@ -28,7 +28,7 @@ Theme colors live outside this repo in `~/env/dotfiles/rc/themerc`, which export
 | `satty/` | Screenshot annotation tool config (`config.toml`: brush tool on start, `wl-copy`, saves to `~/Pictures/Screenshots/`) — used by Umbriel's screenshot binds |
 | `yazi/` | Terminal file manager config (`yazi.toml`, `keymap.toml`, `theme.toml`) and bundled flavors (Catppuccin Frappé/Latte/Macchiato/Mocha, Dracula) — `theme.toml` selects `dracula` for both dark and light |
 | `chromium-flags.conf` | Flags for Chromium/Electron apps under Wayland (Ozone, PipeWire screen capture, plus `--process-per-site` and background-throttling/networking tweaks) |
-| `screenshots/` | Images used in this README (`niri.png`, `quickshell.png`, `nvim.png`) |
+| `screenshots/` | Images used in this README (`wm.png`, `quickshell.png`, `nvim.png`) |
 
 See each subdirectory's own README for details — `umbriel`, `quickshell`, and `nvim` are the largest pieces and are documented in depth.
 

@@ -26,6 +26,8 @@ PanelWindow {
     id: skyImg
     anchors.fill: parent
     fillMode: Image.PreserveAspectCrop
+    // Decode at screen size instead of the file's full resolution.
+    sourceSize: Qt.size(root.width, root.height)
     source: Icons.wallpaperSky
   }
 
@@ -51,6 +53,7 @@ PanelWindow {
     id: mountainImg
     anchors.fill: parent
     fillMode: Image.PreserveAspectCrop
+    sourceSize: Qt.size(root.width, root.height)
     source: Icons.wallpaperMountains
   }
 }
