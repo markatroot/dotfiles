@@ -55,13 +55,21 @@ local SERVERS = {
 }
 
 -- vim.lsp.enable() already starts servers only for matching filetypes, so
--- register them once here instead of on every FileType event.
-for _, server in ipairs(SERVERS) do
-  if server.attach then
-    vim.lsp.config(server.name, require('lsp.servers.' .. server.name))
-    vim.lsp.enable(server.name)
-  end
-end
+-- register them once. Deferred to the first file read so a bare `nvim`
+-- never loads vim.lsp. BufReadPre/BufNewFile fire before that buffer's
+-- FileType, so the first file still gets its server attached.
+vim.api.nvim_create_autocmd({ 'BufReadPre', 'BufNewFile' }, {
+  group = vim.api.nvim_create_augroup('LspEnableServers', { clear = true }),
+  once = true,
+  callback = function()
+    for _, server in ipairs(SERVERS) do
+      if server.attach then
+        vim.lsp.config(server.name, require('lsp.servers.' .. server.name))
+        vim.lsp.enable(server.name)
+      end
+    end
+  end,
+})
 
 -- Global diagnostic display; set once rather than on every attach.
 vim.diagnostic.config({

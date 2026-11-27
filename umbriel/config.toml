@@ -25,6 +25,7 @@ files = [
 mod_key = "Super"
 # niri shows its hotkey overlay at startup only if configured; keep it quiet.
 show_cheatsheet = false
+xwayland = false
 # Commands run through /bin/sh -c, so $CONFIG_PATH and pipes work.
 autostart = [
   "$CONFIG_PATH/umbriel/scripts/pipewire-start.sh",

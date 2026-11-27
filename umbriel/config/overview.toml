@@ -3,3 +3,9 @@
 # niri had hot corners off; the packaged config enables top-left.
 [hot_corners.top_left]
 enabled = false
+
+# Saves GPU memory: no blur behind the overview, and workspace previews
+# don't mirror the Quickshell wallpaper.
+[overview]
+background_blur = false
+workspace_wallpaper = false

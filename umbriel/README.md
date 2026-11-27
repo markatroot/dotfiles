@@ -15,11 +15,11 @@ config/
   output.toml             # eDP-1 mode/scale/position
   layout.toml             # scrolling layout, gaps, column width presets
   appearance.toml.in      # template for appearance.toml — edit this one (${THEME_*} colors)
-  appearance.toml         # generated: border colors, corner radius, shadow
+  appearance.toml         # generated: border colors, corner radius; shadow and blur off
   animation.toml          # spring curves
-  overview.toml           # hot corners (off)
+  overview.toml           # hot corners (off), no overview blur or wallpaper previews
   window-rules.toml       # floating rules for satty, mpv, thunar, flameshot; foot/kitty share a "terms" column
-  layer-rules.toml        # none needed yet (overview mirrors the background layer)
+  layer-rules.toml        # none needed yet
   keybinds.toml           # keybinds, same keys as niri plus a few Umbriel extras
   workspace.toml          # default workspace (scrolling layout)
 scripts/

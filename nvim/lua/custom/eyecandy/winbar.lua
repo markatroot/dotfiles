@@ -1,4 +1,5 @@
--- Custom winbar: shows the filename in the active window, blank otherwise.
+-- Custom winbar: shows the filename in inactive windows and is blank in the
+-- active one (the global statusline already shows the active file).
 -- Skipped for floating windows (see the `relative ~= ""` guard below).
 function _G.my_winbar(inactive)
   if inactive then

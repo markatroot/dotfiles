@@ -56,7 +56,11 @@ local pack = {
     name = 'mini-surround',
     src = 'nvim-mini/mini.surround',
     config = function()
-      require 'my_plugin.mini-surround'
+      -- Deferred until after the first redraw; the mappings aren't needed
+      -- before then.
+      vim.schedule(function()
+        require 'my_plugin.mini-surround'
+      end)
     end,
   },
   {
@@ -70,6 +74,9 @@ local pack = {
   {
     name = 'neo-tree',
     src = 'nvim-neo-tree/neo-tree.nvim',
+    -- Loaded on first :Neotree (e.g. the <C-i> toggle). Note: until then it
+    -- won't hijack netrw for `nvim <dir>`.
+    pattern = 'Neotree',
     config = function()
       require 'my_plugin.neo-tree'
     end,
@@ -77,6 +84,8 @@ local pack = {
   {
     name = 'formatter',
     src = 'mhartington/formatter.nvim',
+    -- Loaded on first :Format (bound to <leader>p in plugin/lsp.lua).
+    pattern = { 'Format', 'FormatWrite', 'FormatLock', 'FormatWriteLock' },
     config = function()
       require 'my_plugin.formatter'
     end,
@@ -145,7 +154,7 @@ local pack = {
   {
     name = "markview",
     src = "OXY2DEV/markview.nvim",
-    ft = { 'markdown', 'md' }
+    ft = { 'markdown' }
   },
   {
     name = "colorizer",

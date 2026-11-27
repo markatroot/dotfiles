@@ -1,10 +1,7 @@
 -- Core Neovim options (indentation, UI chrome, search, etc.).
 -- mapleader is set in config.mapping, which loads before this file.
-vim.cmd('filetype plugin indent on')
-
 -- Files / swap
 vim.opt.swapfile = false
-vim.opt.dir = '/home/mark/env/config/nvim/swap'
 
 -- UI chrome
 vim.opt.laststatus = 3
@@ -38,7 +35,6 @@ vim.o.incsearch = true
 
 -- Misc
 vim.o.background = 'dark'
-vim.o.encoding = 'utf-8'
 vim.o.updatetime = 500
 
 -- Popup menu / completion

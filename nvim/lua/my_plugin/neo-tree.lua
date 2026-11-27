@@ -1,6 +1,5 @@
 -- neo-tree.nvim setup, toggled with <C-i> (see lua/config/mapping.lua).
 local U = require 'config.utils'
-local input = require 'custom.menu.input'
 
 -- Directory to run a command in for the given tree node: the file's parent
 -- for a file node, or the node's own path for a directory node.
@@ -43,7 +42,7 @@ require('neo-tree').setup({
               if command == nil or command == '' then return end
               startjob(command, get_dir_by_node(node), state)
             end
-            input.show({
+            require('custom.menu.input').show({
               title = ' Execute Command ',
               default_value = '',
               callback = callback,

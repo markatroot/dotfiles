@@ -10,16 +10,14 @@ U.map('n', '<Left>', ':vertical resize -5<cr>', { silent = true })
 U.map('n', '<Up>', ':5winc -<cr>', { silent = true })
 U.map('n', '<Down>', ':5winc +<cr>', { silent = true })
 
--- NOTE: no lua/git/blame.lua module exists; this likely meant to point at
--- my_plugin.blamer.blame() and currently errors when triggered.
-U.map('n', '<leader>gb', ":lua require'git.blame'.blame()<cr>", { silent = true })
+-- Toggle inline git blame (blamer.nvim, loaded for the filetypes in init.lua).
+U.map('n', '<leader>gb', '<cmd>BlamerToggle<cr>', { silent = true })
 
 -- Escape insert mode by typing 'jj'
 U.map('i', 'jj', '<Esc>')
 
 -- Move between windows from terminal mode.
--- NOTE: `option` below is an undefined global (always nil), so these get no
--- opts at all rather than the { silent = true } the others use.
+local option = { silent = true }
 U.map('t', '<C-w>h', '<C-\\><C-N><C-w>h', option)
 U.map('t', '<C-w>j', '<C-\\><C-n><C-j>', option)
 U.map('t', '<C-w>k', '<C-\\><C-n><C-k>', option)

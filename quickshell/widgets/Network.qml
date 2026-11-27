@@ -43,8 +43,8 @@ RowLayout {
     visible: false
     verticalAlignment: Text.AlignVCenter
     source: root.icon
-    sourceSize.height: Icons.imgIconHeight
-    sourceSize.width: Icons.imgIconWidth
+    sourceSize.height: Icons.imgIconHeight + 2
+    sourceSize.width: Icons.imgIconWidth + 2
   }
 
 }

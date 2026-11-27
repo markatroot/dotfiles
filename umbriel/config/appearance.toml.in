@@ -7,8 +7,13 @@ border_width = 2
 # niri window-rule geometry-corner-radius
 corner_radius = 5
 
+# Blur is on by default; its offscreen textures cost GPU memory and nothing uses it.
+[appearance.blur]
+enabled = false
+
+# Off to save GPU memory.
 [appearance.shadow]
-enabled = true
+enabled = false
 softness = 30
 offset_x = 0
 offset_y = 5

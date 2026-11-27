@@ -80,33 +80,6 @@ function M.append_to_file(tbl)
   io.close(file)
 end
 
-local scopes = {
-  o = vim.o,        -- global options
-  b = vim.bo,       -- buffer options
-  w = vim.wo,       -- window options
-  l = vim.opt_local -- local options
-}
-
--- NOTE: `scopes[scope][key] = value` below already errors on an invalid
--- scope, so the nil-check and its error message (which is itself missing a
--- `..` between key and the following string) can never actually run.
-function M.set_opt(scope, key, value)
-  scopes[scope][key] = value
-  if scope ~= 'o' then scopes['o'][key] = value end
-  if scopes[scope] == nil then
-    -- print('Invalid option: ' .. key ' ' .. value)
-    return
-  end
-
-  if scope == 'o' then
-    vim.api.nvim_set_option(key, value)
-  elseif scope == 'w' then
-    vim.api.nvim_win_set_option(0, key, value)
-  elseif scope == 'b' then
-    vim.api.nvim_buf_set_option(0, key, value)
-  end
-end
-
 -- M.map uses the legacy string-only keymap API; M.keymap wraps the modern
 -- vim.keymap.set and additionally accepts function callbacks as `rhs`.
 function M.map(mode, lhs, rhs, opts)
@@ -123,20 +96,6 @@ end
 
 local function get_color(group, attr)
   return vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID(group)), attr)
-end
-
--- Debug helper: fetches a highlight group's attrs with colors as hex strings.
-function M.get_hl_hex(name)
-  local ok, hl = pcall(vim.api.nvim_get_hl_by_name, name, true)
-  if not ok then
-    return
-  end
-  for _, key in pairs({ 'foreground', 'background', 'special' }) do
-    if hl[key] then
-      hl[key] = string.format('#%06x', hl[key])
-    end
-  end
-  return hl
 end
 
 function M.get_hi_value(group, what, mode)
